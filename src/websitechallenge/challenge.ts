@@ -7,10 +7,12 @@ import { ProductService, ParentProduct } from './product.service';
 export class Challenge {
   suppliers: Supplier[];
   title: string = 'Browse';
+  searchPlaceHolder: string = 'Search suppliers';
   showModal: boolean = true;
   number: number;
   products: ParentProduct[];
   productPage: boolean = false;
+  supplierPage: boolean = true;
 
   constructor(
     private supplierService: SupplierService,
@@ -25,11 +27,6 @@ export class Challenge {
     let paginatedItem = await this.productService.get();
     this.products = paginatedItem.data;
   }
-
-  private async getSuppliers() {
-    for (let i of this.suppliers) {
-    }
-  }
   // open and close modal
 
   openModal() {
@@ -43,12 +40,12 @@ export class Challenge {
   // show product list
 
   async selectSupplier(supplier: Supplier) {
-    // supplier.name = this.suppliers[].name
     this.title = supplier.name;
     await this.getProducts();
     this.productPage = true;
+    this.supplierPage = false;
+    this.searchPlaceHolder = 'Search Products';
     await this.showChildProducts(supplier.id);
-    console.log(await this.showChildProducts(supplier.id));
   }
 
   // returnButton functionality
@@ -56,6 +53,8 @@ export class Challenge {
   backButton() {
     this.title = 'Browse';
     this.productPage = false;
+    this.supplierPage = true;
+    this.searchPlaceHolder = 'Search suppliers';
   }
 
   async printParentProducts(supplierId: string) {

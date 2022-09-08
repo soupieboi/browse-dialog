@@ -31,12 +31,20 @@
         <button type="button" id="searchbutton">
           <img src="img/search.png" alt="search" id="searchbtn" />
         </button>
-        <input type="text" id="modal-input" placeholder="Search supplier" />
+        <input
+          type="text"
+          id="modal-input"
+          placeholder="${searchPlaceHolder}"
+        />
       </div>
       <div class="listitems">
         <ul>
           <li class="items" repeat.for="supplier of suppliers">
-            <a href="#" click.delegate="selectSupplier(supplier)">
+            <a
+              href="#"
+              click.delegate="selectSupplier(supplier)"
+              show.bind="supplierPage"
+            >
               ${supplier.name}
             </a>
           </li>
