@@ -1,0 +1,70 @@
+<template>
+  <h1 class="name">Modal Challenge</h1>
+  <require from="./challenge.scss"></require>
+  <button type="button" click.delegate="openModal()">Open Modal</button>
+  <button type="button" click.delegate="selectSupplier(supplier)">
+    test me!
+  </button>
+
+  <div
+    class="modal-body"
+    id="modal-body"
+    show.bind="showModal"
+    show.bind="closeModal"
+  >
+    <div class="modal-content" id="modal-content">
+      <h3 class="modalname">${title}</h3>
+      <div class="closeandback">
+        <button
+          type="button"
+          class="modalback"
+          show.bind="productPage"
+          click.delegate="backButton()"
+        >
+          <img src="img/arrow-left.png" alt="backarrow" />
+        </button>
+        <button type="button" class="modalclose" click.delegate="closeModal()">
+          <img src="img/x.png" alt="x" />
+        </button>
+      </div>
+      <div class="modalsearchbox" id="modalsearchbox">
+        <button type="button" id="searchbutton">
+          <img src="img/search.png" alt="search" id="searchbtn" />
+        </button>
+        <input type="text" id="modal-input" placeholder="Search supplier" />
+      </div>
+      <div class="listitems">
+        <ul>
+          <li class="items" repeat.for="supplier of suppliers">
+            <a href="#" click.delegate="selectSupplier(supplier)">
+              ${supplier.name}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="productlist">
+        <ul>
+          <a href="#" class="products">
+            <li
+              class="products"
+              click.delegate="selectSupplier(supplier)"
+              repeat.for="product of products"
+              show.bind="productPage"
+            >
+              ${product.name}
+            </li>
+          </a>
+        </ul>
+      </div>
+      <span class="close"></span>
+      <p></p>
+    </div>
+    <div class="bottombtns">
+      <button class="product-selected">0 product selected</button>
+    </div>
+    <div class="bottomrightbtns">
+      <button class="cancelbtn">CANCEL</button>
+      <button class="addbtn">ADD</button>
+    </div>
+  </div>
+</template>

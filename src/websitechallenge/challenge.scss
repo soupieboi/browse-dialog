@@ -1,0 +1,264 @@
+$hovercolor: rgba(47, 141, 248, 0.99);
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Segoe UI', 'open sans', 'Overpass', sans-serif;
+}
+
+.modal-body {
+  position: fixed;
+  height: 661px;
+  width: 751px;
+  left: 600px;
+  top: 100px;
+  border-radius: 10px;
+  padding: 20px 32px 20px 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 32px;
+  gap: 20px;
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+  .productlist ul {
+    max-height: 450px;
+    overflow-y: auto;
+  }
+
+  .products:hover {
+    background: $hovercolor;
+    transition: 0.13s ease-in-out;
+  }
+}
+
+.modal-content {
+  border: none;
+
+  h3 {
+    background: white;
+    height: 28px;
+    width: 687px;
+    left: 32px;
+    top: 40px;
+    border-radius: nullpx;
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    align-items: center;
+    text-align: center;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    padding-bottom: 25px;
+  }
+}
+
+.modalsearchbox {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 11px 30px 11px 12px;
+  gap: 10px;
+  height: 42px;
+  margin-top: 20px;
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
+  border-radius: 3px;
+  z-index: 5;
+
+  img {
+    background: white;
+  }
+
+  button {
+    text-decoration: none;
+    border: none;
+    background: white;
+  }
+
+  #modal-input {
+    text-decoration: none;
+    border: none;
+    background: white;
+    padding: 7px 400px 7px 12px;
+
+    ::placeholder {
+      color: #c4c4c4;
+    }
+  }
+}
+
+.closeandback {
+  position: absolute;
+  background: white;
+  right: 45px;
+  top: 24px;
+
+  button {
+    background: white;
+    text-decoration: none;
+    border: none;
+  }
+
+  .modalback {
+    margin-right: 589px;
+    border: none;
+  }
+}
+
+.product-selected {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 10px;
+  font: overpass;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+  color: #c4c4c4;
+  border: 1px solid #c4c4c4;
+  border-radius: 3px;
+  background: white;
+}
+
+.bottombtns {
+  display: flex;
+  align-self: flex-start;
+  margin-top: 453px;
+}
+
+.bottomrightbtns {
+  margin-top: -59px;
+  display: flex;
+  align-self: flex-end;
+  gap: 20px;
+  background: white;
+}
+
+.addbtn {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 10px;
+  align-self: flex-end;
+  font: overpass;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+  color: #c4c4c4;
+  border: 1px solid #c4c4c4;
+  border-radius: 3px;
+  background: white;
+}
+
+.cancelbtn {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 10px;
+  font: overpass;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+  color: #c4c4c4;
+  border: 1px solid #c4c4c4;
+  border-radius: 3px;
+  background: white;
+}
+
+.listitems {
+  li {
+    list-style: none;
+    background: white;
+    width: 686px;
+    padding-top: 9.75px;
+    padding-bottom: 9.75px;
+    border-top: none;
+    border-radius: 5px;
+    padding-left: 20px;
+    border: 1px solid #e5e5e5;
+  }
+  ul {
+    position: absolute;
+    overflow-y: auto;
+    margin-top: 24px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.items:hover {
+  background: $hovercolor;
+  transition: 0.13s ease-in-out;
+}
+
+.productlist {
+  li {
+    list-style: none;
+    background: white;
+    width: 686px;
+    padding-top: 9.75px;
+    padding-bottom: 9.75px;
+    border-top: none;
+    border-radius: 5px;
+    padding-left: 20px;
+    border: 1px solid #e5e5e5;
+  }
+  ul {
+    position: absolute;
+    overflow-y: auto;
+    margin-top: 24px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.childproductlist {
+  li {
+    list-style: none;
+    background: white;
+    width: 686px;
+    padding-top: 9.75px;
+    padding-bottom: 9.75px;
+    border-top: none;
+    border-radius: 5px;
+    padding-left: 20px;
+    border: 1px solid #e5e5e5;
+  }
+  ul {
+    position: absolute;
+    overflow-y: auto;
+    margin-top: 24px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
