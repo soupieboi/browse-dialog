@@ -237,28 +237,13 @@ $hovercolor: rgba(47, 141, 248, 0.99);
   a {
     text-decoration: none;
     color: black;
+    padding: 10px 100px;
+    padding-left: 0;
   }
-}
-
-.childproductlist {
-  li {
-    list-style: none;
-    background: white;
-    width: 686px;
-    padding-top: 9.75px;
-    padding-bottom: 9.75px;
-    border-top: none;
-    border-radius: 5px;
-    padding-left: 20px;
-    border: 1px solid #e5e5e5;
-  }
-  ul {
-    position: absolute;
-    overflow-y: auto;
-    margin-top: 24px;
-  }
-  a {
-    text-decoration: none;
-    color: black;
+  img {
+    float: right;
+    margin-right: 16px;
+    margin-top: 4px;
+    transform: rotate(0deg);
   }
 }

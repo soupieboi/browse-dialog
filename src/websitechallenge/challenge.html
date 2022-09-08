@@ -52,16 +52,19 @@
       </div>
       <div class="productlist">
         <ul>
-          <a href="#" class="products">
-            <li
-              class="products"
-              click.delegate="selectSupplier(supplier)"
-              repeat.for="product of products"
-              show.bind="productPage"
-            >
-              ${product.name}
-            </li>
-          </a>
+          <li
+            class="products"
+            click.delegate="selectSupplier(supplier)"
+            repeat.for="product of products"
+            show.bind="productPage"
+          >
+            <a href="#" class="products">
+              ${product.name}<img
+                src="./img/chevron-right.png"
+                css="transform: rotate(${rotateimg}deg);"
+              />
+            </a>
+          </li>
         </ul>
       </div>
       <span class="close"></span>

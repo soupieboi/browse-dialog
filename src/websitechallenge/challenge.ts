@@ -13,6 +13,7 @@ export class Challenge {
   products: ParentProduct[];
   productPage: boolean = false;
   supplierPage: boolean = true;
+  rotateimg: string = '0';
 
   constructor(
     private supplierService: SupplierService,
