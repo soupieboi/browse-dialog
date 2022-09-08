@@ -58,6 +58,10 @@ export class Challenge {
     this.productPage = false;
   }
 
+  async printParentProducts(supplierId: string) {
+    await this.showChildProducts(supplierId);
+  }
+
   async showChildProducts(supplierId: string) {
     this.products = this.products.filter((c) => c.supplierId === supplierId);
   }
