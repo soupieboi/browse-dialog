@@ -50,18 +50,21 @@
 
       <div class="product-list" if.bind="showProductList">
         <ul>
-          <li class="products" repeat.for="product of products">
+          <li class="products" repeat.for="product of products" style="">
             <a
               href="#"
               class="products"
               click.delegate="selectParentProduct(product.id)"
+              style=""
             >
               ${product.name}
               <ul
                 if.bind="selectedParentProduct === product.id && isProductDropDownActive"
                 repeat.for="childProduct of product.childProducts"
               >
-                <li>${childProduct.name}</li>
+                <a href="#" class="childproduct-li"
+                  ><li class="childproduct-li">${childProduct.name}</li></a
+                >
               </ul>
             </a>
           </li>
