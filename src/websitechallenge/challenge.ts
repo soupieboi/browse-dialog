@@ -1,7 +1,10 @@
-import { stringify } from 'querystring';
 import { autoinject } from 'aurelia-framework';
 import { SupplierService, Supplier } from './supplier.service';
-import { ProductService, ParentProduct } from './product.service';
+import {
+  ProductService,
+  ParentProduct,
+  PaginatedItem,
+} from './product.service';
 
 @autoinject
 export class Challenge {
@@ -11,9 +14,9 @@ export class Challenge {
   showModal: boolean = true;
   number: number;
   products: ParentProduct[];
-  productPage: boolean = false;
+  showProductList: boolean = false;
   supplierPage: boolean = true;
-  rotateimg: string = '0';
+  rotatedArrow: string = 'arrow-right';
 
   constructor(
     private supplierService: SupplierService,
@@ -30,12 +33,17 @@ export class Challenge {
   }
   // open and close modal
 
-  openModal() {
-    this.showModal = true;
+  toggleModal() {
+    this.showModal = !this.showModal;
   }
 
-  closeModal() {
-    this.showModal = false;
+  animatedArrow(chosenProduct: string) {
+    if (this.rotatedArrow === 'activeArrow') {
+      this.rotatedArrow = 'arrow-right';
+    } else {
+      this.rotatedArrow = 'activeArrow';
+    }
+    console.log();
   }
 
   // show product list
@@ -43,17 +51,21 @@ export class Challenge {
   async selectSupplier(supplier: Supplier) {
     this.title = supplier.name;
     await this.getProducts();
-    this.productPage = true;
+    this.showProductList = true;
     this.supplierPage = false;
     this.searchPlaceHolder = 'Search Products';
     await this.showChildProducts(supplier.id);
+  }
+
+  async selectProduct() {
+    await this.getProducts();
   }
 
   // returnButton functionality
 
   backButton() {
     this.title = 'Browse';
-    this.productPage = false;
+    this.showProductList = false;
     this.supplierPage = true;
     this.searchPlaceHolder = 'Search suppliers';
   }

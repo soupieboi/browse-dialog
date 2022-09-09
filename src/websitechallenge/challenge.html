@@ -1,43 +1,35 @@
 <template>
   <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
-  <button type="button" click.delegate="openModal()">Open Modal</button>
-  <button type="button" click.delegate="selectSupplier(supplier)">
-    test me!
-  </button>
+  <button type="button" click.delegate="toggleModal()">Open Modal</button>
+  <button type="button" click.delegate="animatedArrow()">test me!</button>
 
-  <div
-    class="modal-body"
-    id="modal-body"
-    show.bind="showModal"
-    show.bind="closeModal"
-  >
-    <div class="modal-content" id="modal-content">
-      <h3 class="modalname">${title}</h3>
-      <div class="closeandback">
+  <div class="modal-body" show.bind="showModal">
+    <div class="modal-content">
+      <header>
         <button
           type="button"
           class="modalback"
-          show.bind="productPage"
+          show.bind="showProductList"
           click.delegate="backButton()"
         >
           <img src="img/arrow-left.png" alt="backarrow" />
         </button>
-        <button type="button" class="modalclose" click.delegate="closeModal()">
+        <h3 class="modalname">${title}</h3>
+
+        <button type="button" class="modalclose" click.delegate="toggleModal()">
           <img src="img/x.png" alt="x" />
         </button>
-      </div>
-      <div class="modalsearchbox" id="modalsearchbox">
-        <button type="button" id="searchbutton">
-          <img src="img/search.png" alt="search" id="searchbtn" />
-        </button>
+      </header>
+      <div class="modalsearchbox">
+        <img src="img/search.png" alt="search" />
         <input
           type="text"
           id="modal-input"
           placeholder="${searchPlaceHolder}"
         />
       </div>
-      <div class="listitems">
+      <div class="supplier-list" if.bind="!showProductList">
         <ul>
           <li class="items" repeat.for="supplier of suppliers">
             <a
@@ -50,19 +42,24 @@
           </li>
         </ul>
       </div>
-      <div class="productlist">
+
+      <div class="product-list" if.bind="showProductList">
         <ul>
-          <li
-            class="products"
-            click.delegate="selectSupplier(supplier)"
-            repeat.for="product of products"
-            show.bind="productPage"
-          >
-            <a href="#" class="products">
-              ${product.name}<img
+          <li class="products" repeat.for="product of products">
+            <a
+              href="#"
+              class="products"
+              click.delegate="selectProduct(supplier)"
+            >
+              ${product.name}
+              <img
                 src="./img/chevron-right.png"
-                css="transform: rotate(${rotateimg}deg);"
+                click.delegate="animatedArrow()"
               />
+
+              <ul repeat.for="childProduct of product.childProducts">
+                <li>${childProduct.name}</li>
+              </ul>
             </a>
           </li>
         </ul>
