@@ -1,0 +1,47 @@
+To do list Modal Project.
+
+
+Make a counter
+
+visualize that counter in the selected button and change the colors once there is selected > 0
+BackButton only shows when selected < 1
+let the counter be adjusted by the ADD button .. 
+value.input >= 0 == add-button change colour
+
+Make checkboxes that will add the requested child into an object array
+Be able to select multiple products
+Be able to input values into multiple inputs at the same time that sorts them into the right part of the object array
+Make an error for text, dots, commas and spaces inside of the input box ..
+if value.input != number display errormessage
+when you press add let you see how much of what you have added underneath the input box ..
+display id:293182748912.amount
+Add toast notification of you adding something to the array and displaying the current ChildProduct that you are adding.
+on hover, check if there is any amount inside of the childproduct and if true show a trashcan that leads you to a new list displaying the objectarray with all the current values inside of it
+On the deletionpage that is displaying the current array values.. Have a toast notification pop-up when you do delete something for 3 seconds and let it close automatically
+Also add an undo button that basically acts like a CTRL+Z on the toast pop-up
+Have a close button on the toast pop up..
+	show.bind=""
+
+If the user searched something then display specific item (if there are any otherwise 404 error)
+automatically make the parentProduct pop open
+
+
+
+
+
+
+[{
+"amount": "",
+"name": "",
+"id": "",
+"sku": ""}
+{
+"amount": "",
+"name": "",
+"id": "",
+"sku": ""}]
+
+
+Fix hover over scss by making a variable onto the isProductDropDownActive that disables the a hover of the parentProduct or makes the hover the same color as the background
+
+
