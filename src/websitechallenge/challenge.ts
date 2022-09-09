@@ -17,6 +17,7 @@ export class Challenge {
   showChildInfo: boolean = false;
   selectedParentProduct: string = null;
   isProductDropDownActive: boolean = false;
+  hoverCSS: string = 'background: white;';
 
   constructor(
     private supplierService: SupplierService,
@@ -75,5 +76,13 @@ export class Challenge {
 
   toggleProductDropdown() {
     this.isProductDropDownActive = !this.isProductDropDownActive;
+  }
+
+  showHoverColor() {
+    if (this.isProductDropDownActive === true) {
+      return;
+    } else {
+      this.hoverCSS = 'background: rgba(47, 141, 248, 0.99);';
+    }
   }
 }
