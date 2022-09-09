@@ -1,10 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { SupplierService, Supplier } from './supplier.service';
-import {
-  ProductService,
-  ParentProduct,
-  PaginatedItem,
-} from './product.service';
+import { ProductService, ParentProduct } from './product.service';
 
 @autoinject
 export class Challenge {
@@ -15,8 +11,12 @@ export class Challenge {
   number: number;
   products: ParentProduct[];
   showProductList: boolean = false;
+  showProductChildren: boolean = false;
   supplierPage: boolean = true;
   rotatedArrow: string = 'arrow-right';
+  showChildInfo: boolean = false;
+  selectedParentProduct: string = null;
+  isProductDropDownActive: boolean = false;
 
   constructor(
     private supplierService: SupplierService,
@@ -46,35 +46,34 @@ export class Challenge {
     console.log();
   }
 
-  // show product list
-
   async selectSupplier(supplier: Supplier) {
     this.title = supplier.name;
     await this.getProducts();
     this.showProductList = true;
     this.supplierPage = false;
     this.searchPlaceHolder = 'Search Products';
-    await this.showChildProducts(supplier.id);
+    this.showProductChildren = false;
+    this.showChildProducts(supplier.id);
   }
-
-  async selectProduct() {
-    await this.getProducts();
-  }
-
-  // returnButton functionality
 
   backButton() {
     this.title = 'Browse';
     this.showProductList = false;
     this.supplierPage = true;
     this.searchPlaceHolder = 'Search suppliers';
+    this.selectedParentProduct = null;
   }
 
-  async printParentProducts(supplierId: string) {
-    await this.showChildProducts(supplierId);
+  selectParentProduct(productId: string) {
+    this.selectedParentProduct = productId;
+    this.toggleProductDropdown();
   }
 
-  async showChildProducts(supplierId: string) {
+  showChildProducts(supplierId: string) {
     this.products = this.products.filter((c) => c.supplierId === supplierId);
+  }
+
+  toggleProductDropdown() {
+    this.isProductDropDownActive = !this.isProductDropDownActive;
   }
 }

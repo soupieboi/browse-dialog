@@ -2,7 +2,12 @@
   <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
   <button type="button" click.delegate="toggleModal()">Open Modal</button>
-  <button type="button" click.delegate="animatedArrow()">test me!</button>
+  <button
+    type="button"
+    click.delegate="filterProductChildList(selectedProduct)"
+  >
+    test me!
+  </button>
 
   <div class="modal-body" show.bind="showModal">
     <div class="modal-content">
@@ -49,30 +54,27 @@
             <a
               href="#"
               class="products"
-              click.delegate="selectProduct(supplier)"
+              click.delegate="selectParentProduct(product.id)"
             >
               ${product.name}
-              <img
-                src="./img/chevron-right.png"
-                click.delegate="animatedArrow()"
-              />
-
-              <ul repeat.for="childProduct of product.childProducts">
+              <ul
+                if.bind="selectedParentProduct === product.id && isProductDropDownActive"
+                repeat.for="childProduct of product.childProducts"
+              >
                 <li>${childProduct.name}</li>
               </ul>
             </a>
           </li>
         </ul>
       </div>
-      <span class="close"></span>
-      <p></p>
     </div>
-    <div class="bottombtns">
+
+    <div class="button-wrapper">
       <button class="product-selected">0 product selected</button>
-    </div>
-    <div class="bottomrightbtns">
-      <button class="cancelbtn">CANCEL</button>
-      <button class="addbtn">ADD</button>
+      <div class="bottom-buttons">
+        <button class="cancel-button">CANCEL</button>
+        <button class="add-button">ADD</button>
+      </div>
     </div>
   </div>
 </template>
