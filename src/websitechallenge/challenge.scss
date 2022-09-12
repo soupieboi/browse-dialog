@@ -76,6 +76,14 @@ $hovercolor: rgba(47, 141, 248, 0.99);
       padding: 10px 100px;
       padding-left: 0;
     }
+    img {
+      margin-right: 16px;
+      margin-top: 4px;
+      transform: rotate(0deg);
+    }
+    #activeArrow {
+      transform: rotate(90deg);
+    }
   }
   header {
     display: flex;
