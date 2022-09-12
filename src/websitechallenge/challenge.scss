@@ -101,17 +101,18 @@ $hovercolor: rgba(47, 141, 248, 0.99);
       padding: 10px;
       padding-left: 0;
     }
-    img {
+    .arrow {
       margin-right: 16px;
       margin-top: 4px;
       transform: rotate(0deg);
       float: right;
     }
-    #activeArrow {
-      transform: rotate(90deg);
-    }
-    #arrow-right {
-      transform: rotate(0deg);
+    .productCount {
+      float: right;
+      margin-right: 12px;
+      border-radius: 4px;
+      max-width: 75px;
+      padding: 2px;
     }
   }
   header {

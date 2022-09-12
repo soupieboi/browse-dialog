@@ -18,6 +18,8 @@ export class Challenge {
   selectedParentProduct: string = null;
   isProductDropDownActive: boolean = false;
   changeHoverEffect: string = 'nohoverproductlist';
+  onCheck: boolean = true;
+  updateTotalSelected: number;
 
   constructor(
     private supplierService: SupplierService,
@@ -36,14 +38,6 @@ export class Challenge {
 
   toggleModal() {
     this.showModal = !this.showModal;
-  }
-
-  animatedArrow(chosenProduct: string) {
-    if (this.rotatedArrow === 'activeArrow') {
-      this.rotatedArrow = 'arrow-right';
-    } else {
-      this.rotatedArrow = 'activeArrow';
-    }
   }
 
   async selectSupplier(supplier: Supplier) {
@@ -78,5 +72,11 @@ export class Challenge {
 
   toggleProductDropdown() {
     this.isProductDropDownActive = !this.isProductDropDownActive;
+
+    if (this.isProductDropDownActive === true) {
+      this.rotatedArrow === 'arrow-down';
+    } else {
+      this.rotatedArrow === 'arrow-right';
+    }
   }
 }

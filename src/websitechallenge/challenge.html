@@ -50,21 +50,14 @@
 
       <div class="product-list" if.bind="showProductList">
         <ul>
-          <li
-            class="${changeHoverEffect}"
-            repeat.for="product of products"
-            click.delegate="animatedArrow(product.name)"
-          >
+          <li class="${changeHoverEffect}" repeat.for="product of products">
             <a
               href="#"
               id="onlypaddingright"
               class="products"
               click.delegate="selectParentProduct(product.id)"
             >
-              <img
-                src="./img/chevron-right.png"
-                id="${rotatedArrow}"
-              />${product.name}
+              <img src="./img/chevron-right.png" class="arrow" />${product.name}
             </a>
             <ul
               if.bind="selectedParentProduct === product.id && isProductDropDownActive"
@@ -74,7 +67,9 @@
                 class="childproduct-li"
                 repeat.for="childProduct of product.childProducts"
               >
+                <input type="checkbox" />
                 <a href="#" class="childproduct-a">${childProduct.name} </a>
+                <input type="number" class="productCount" min="0" />
               </li>
             </ul>
           </li>
