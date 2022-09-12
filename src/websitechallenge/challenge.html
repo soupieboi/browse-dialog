@@ -53,7 +53,7 @@
           <li
             class="${changeHoverEffect}"
             repeat.for="product of products"
-            click.delegate="changeHoverproduct()"
+            click.delegate="animatedArrow(product.name)"
           >
             <a
               href="#"
@@ -61,7 +61,10 @@
               class="products"
               click.delegate="selectParentProduct(product.id)"
             >
-              ${product.name}
+              <img
+                src="./img/chevron-right.png"
+                id="${rotatedArrow}"
+              />${product.name}
             </a>
             <ul
               if.bind="selectedParentProduct === product.id && isProductDropDownActive"

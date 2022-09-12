@@ -76,7 +76,7 @@ $hovercolor: rgba(47, 141, 248, 0.99);
         border: 1px solid #e5e5e5;
         overflow-x: hidden;
         #onlypaddingright {
-          padding-right: 900px;
+          padding-right: 400px;
           padding-top: 8px;
           padding-bottom: 8px;
         }
@@ -105,9 +105,13 @@ $hovercolor: rgba(47, 141, 248, 0.99);
       margin-right: 16px;
       margin-top: 4px;
       transform: rotate(0deg);
+      float: right;
     }
     #activeArrow {
       transform: rotate(90deg);
+    }
+    #arrow-right {
+      transform: rotate(0deg);
     }
   }
   header {

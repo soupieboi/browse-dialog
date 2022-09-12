@@ -44,7 +44,6 @@ export class Challenge {
     } else {
       this.rotatedArrow = 'activeArrow';
     }
-    console.log();
   }
 
   async selectSupplier(supplier: Supplier) {
