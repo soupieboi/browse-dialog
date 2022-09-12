@@ -18,8 +18,9 @@ export class Challenge {
   selectedParentProduct: string = null;
   isProductDropDownActive: boolean = false;
   changeHoverEffect: string = 'nohoverproductlist';
-  onCheck: boolean = true;
-  updateTotalSelected: number;
+  isChecked: boolean = false;
+  isReadOnly: boolean = true;
+  readonlyProperty: string = 'readonly';
 
   constructor(
     private supplierService: SupplierService,
@@ -72,11 +73,33 @@ export class Challenge {
 
   toggleProductDropdown() {
     this.isProductDropDownActive = !this.isProductDropDownActive;
+  }
 
-    if (this.isProductDropDownActive === true) {
-      this.rotatedArrow === 'arrow-down';
+  checkboxfunc() {
+    if (this.isChecked === false) {
+      this.isChecked = true;
+      console.log('now true!');
     } else {
-      this.rotatedArrow === 'arrow-right';
+      this.isChecked = false;
+      console.log('now false!');
     }
+    return true;
+  }
+
+  checkSelected() {
+    let inputs = document.getElementsByClassName('productCount');
+
+    for (let index = 0; index < inputs.length; index++) {
+      console.log((inputs[index] as HTMLInputElement).value);
+    }
+
+    // console.log(input);
+    // if (0 != input.length) {
+    //   console.log(input);
+    // }
+  }
+
+  getUserInput() {
+    console.log(this.checkSelected());
   }
 }
