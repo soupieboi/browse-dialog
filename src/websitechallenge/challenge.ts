@@ -17,6 +17,7 @@ export class Challenge {
   showChildInfo: boolean = false;
   selectedParentProduct: string = null;
   isProductDropDownActive: boolean = false;
+  changeHoverEffect: string = 'nohoverproductlist';
 
   constructor(
     private supplierService: SupplierService,
@@ -67,6 +68,9 @@ export class Challenge {
   selectParentProduct(productId: string) {
     this.selectedParentProduct = productId;
     this.toggleProductDropdown();
+    if (this.isProductDropDownActive === true) {
+      this.changeHoverEffect = '#';
+    }
   }
 
   showChildProducts(supplierId: string) {

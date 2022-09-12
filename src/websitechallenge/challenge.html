@@ -50,22 +50,30 @@
 
       <div class="product-list" if.bind="showProductList">
         <ul>
-          <li class="products" repeat.for="product of products">
+          <li
+            class="${changeHoverEffect}"
+            repeat.for="product of products"
+            click.delegate="changeHoverproduct()"
+          >
             <a
               href="#"
+              id="onlypaddingright"
               class="products"
               click.delegate="selectParentProduct(product.id)"
             >
               ${product.name}
-              <ul
-                if.bind="selectedParentProduct === product.id && isProductDropDownActive"
+            </a>
+            <ul
+              if.bind="selectedParentProduct === product.id && isProductDropDownActive"
+              class="childproduct-ul"
+            >
+              <li
+                class="childproduct-li"
                 repeat.for="childProduct of product.childProducts"
               >
-                <a href="#" class="childproduct-li"
-                  ><li class="childproduct-li">${childProduct.name}</li></a
-                >
-              </ul>
-            </a>
+                <a href="#" class="childproduct-a">${childProduct.name} </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
