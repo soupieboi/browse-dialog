@@ -57,8 +57,8 @@
               class="products"
               click.delegate="selectParentProduct(product.id)"
             >
-              <img src="./img/chevron-right.png" class="arrow" />${product.name}
-            </a>
+              <img src="./img/chevron-right.png" class="arrow" />${product.name}</a> 
+            <h5>${product.id}</h5>
             <ul
               if.bind="selectedParentProduct === product.id && isProductDropDownActive"
               class="childproduct-ul"
@@ -74,7 +74,7 @@
                   model.bind="childProduct.id"
                   checked.bind="childProductIdArr"
                 />
-                <a href="#" class="childproduct-a">${childProduct.name} </a>
+                <a href="#" class="childproduct-a">${childProduct.name} ${childProduct.sku}</a>
                 <input
                   type="number"
                   class="productCount"
@@ -83,6 +83,7 @@
                   change.delegate="checkSelected()"
                   blur.delegate="inputIsBlur = true"
                 />
+                <h5 href="#" class="childproduct-sku">${childProduct.sku}</h5>
               </li>
             </ul>
           </li>

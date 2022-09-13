@@ -86,6 +86,11 @@ $activeaddbutton:#3E4760;
         background: #f5f5f5;
         transition: 0.13s ease-in-out;
       }
+      li h5 {
+        color: #7B7B7B;
+        font-weight: 400;
+        font-size: 12px;
+      }
     }
     .childproduct-ul {
       margin-top: 0;
@@ -101,6 +106,12 @@ $activeaddbutton:#3E4760;
       color: black;
       padding: 10px;
       padding-left: 0;
+    }
+    .childproduct-sku {
+      padding-left: 24px;
+      color: #7B7B7B;
+      font-weight: 400;
+      font-size: 12px;
     }
     .arrow {
       margin-right: 16px;
