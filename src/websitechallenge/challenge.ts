@@ -1,6 +1,7 @@
 import { autoinject } from 'aurelia-framework';
 import { SupplierService, Supplier } from './supplier.service';
-import { ProductService, ParentProduct } from './product.service';
+import { ProductService, ParentProduct, ChildProduct } from './product.service';
+import { on } from 'events';
 
 @autoinject
 export class Challenge {
@@ -19,8 +20,12 @@ export class Challenge {
   isProductDropDownActive: boolean = false;
   changeHoverEffect: string = 'nohoverproductlist';
   isChecked: boolean = false;
+  currentChild: string;
   isReadOnly: boolean = true;
   readonlyProperty: string = 'readonly';
+  inputIsBlur: boolean = true;
+  totalSelected: number = 0;
+  selectedChildArr: string[] = [];
 
   constructor(
     private supplierService: SupplierService,
@@ -75,31 +80,38 @@ export class Challenge {
     this.isProductDropDownActive = !this.isProductDropDownActive;
   }
 
-  checkboxfunc() {
-    if (this.isChecked === false) {
-      this.isChecked = true;
-      console.log('now true!');
-    } else {
-      this.isChecked = false;
-      console.log('now false!');
+  checkboxfunc(childproduct: string) {
+    if (!this.selectedChildArr.includes(childproduct)) {
+      this.selectedChildArr.push(childproduct)
+    } else if (this.selectedChildArr.includes(childproduct)) {
+      let duplicateChildProduct = this.selectedChildArr.indexOf(childproduct)
+      
+      if (duplicateChildProduct > -1) {
+        this.selectedChildArr.splice(duplicateChildProduct, 1)
+      }
     }
+
+    console.log(this.selectedChildArr)
+    
     return true;
   }
 
-  checkSelected() {
+  checkSelected(childproduct: string) {
     let inputs = document.getElementsByClassName('productCount');
 
-    for (let index = 0; index < inputs.length; index++) {
-      console.log((inputs[index] as HTMLInputElement).value);
-    }
-
-    // console.log(input);
-    // if (0 != input.length) {
-    //   console.log(input);
+    // if (this.inputIsBlur = true) {
+    // for (let index = 0; index < inputs.length; index++) {
+    //   console.log((inputs[index] as HTMLInputElement).value);   
+    //   }
     // }
+    
+    console.log(childproduct)
+
+
   }
 
   getUserInput() {
-    console.log(this.checkSelected());
+
+
   }
 }

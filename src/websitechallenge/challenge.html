@@ -70,7 +70,7 @@
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc()"
+                  click.delegate="checkboxfunc(childProduct.name)"
                 />
                 <a href="#" class="childproduct-a">${childProduct.name} </a>
                 <input
@@ -78,7 +78,8 @@
                   class="productCount"
                   min="0"
                   placeholder="..."
-                  oninput="getUserInput()"
+                  change.delegate="checkSelected()"
+                  blur.delegate="inputIsBlur = true"
                 />
               </li>
             </ul>
