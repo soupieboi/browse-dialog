@@ -70,7 +70,9 @@
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct.name)"
+                  click.delegate="checkboxfunc(childProduct.name, childProduct.id)"
+                  model.bind="childProduct.id"
+                  checked.bind="childProductIdArr"
                 />
                 <a href="#" class="childproduct-a">${childProduct.name} </a>
                 <input

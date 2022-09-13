@@ -188,6 +188,23 @@ $activeaddbutton:#3E4760;
   }
 }
 
+.selectPage{
+    margin-top: -350px;
+    overflow-y: auto;
+    max-height: 440px;
+    li {
+      list-style: none;
+      background: white;
+      padding-top: 9.75px;
+      padding-bottom: 9.75px;
+      border-top: none;
+      border-radius: 5px;
+      padding-left: 20px;
+      border: 1px solid #e5e5e5;
+      overflow-x: hidden;
+    }
+}
+
 .aurelia-hide {
   display: block !important;
   visibility: hidden;

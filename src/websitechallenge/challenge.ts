@@ -33,6 +33,7 @@ export class Challenge {
   isContentShowing: boolean = true;
   isSelectpageAvailable: boolean = false;
   isArrayDisplayed: boolean = false;
+  childProductIdArr: string[] = [];
 
   constructor(
     private supplierService: SupplierService,
@@ -87,7 +88,7 @@ export class Challenge {
     this.isProductDropDownActive = !this.isProductDropDownActive;
   }
 
-  checkboxfunc(childproduct: string) {
+  checkboxfunc(childproduct: string, childId: string) {
     if (!this.selectedChildArr.includes(childproduct)) {
       this.selectedChildArr.push(childproduct)
     } else if (this.selectedChildArr.includes(childproduct)) {
@@ -117,6 +118,17 @@ export class Challenge {
       this.isSelectpageAvailable = false;
     }
 
+    if (!this.childProductIdArr.includes(childId)) {
+      this.childProductIdArr.push(childId)
+    } else if (this.childProductIdArr.includes(childId)) {
+      let duplicateChildId = this.childProductIdArr.indexOf(childId)
+      
+      if (duplicateChildId > -1) {
+        this.childProductIdArr.splice(duplicateChildId, 1)
+      }
+    }
+
+    console.log(this.childProductIdArr)
     console.log(this.selectedChildArr)
     
     return true;
@@ -139,5 +151,9 @@ export class Challenge {
       this.showProductList = true;
       this.isArrayDisplayed = false;
     }
+  }
+
+  rememberChecked() {
+    console.log(this.childProductIdArr)
   }
 }
