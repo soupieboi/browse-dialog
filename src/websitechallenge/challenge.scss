@@ -181,6 +181,11 @@ $activeaddbutton:#3E4760;
     background: $activeaddbutton;
     transition: 0.13s ease-in;
   }
+  #canCancel {
+    background: rgb(255, 92, 92);
+    color: black;
+    transition: 0.13s ease-in;
+  }
 }
 
 .aurelia-hide {

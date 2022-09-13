@@ -34,7 +34,7 @@
           placeholder="${searchPlaceHolder}"
         />
       </div>
-      <div class="supplier-list" if.bind="!showProductList">
+      <div class="supplier-list" if.bind="!showProductList" show.bind="isContentShowing">
         <ul>
           <li class="items" repeat.for="supplier of suppliers">
             <a
@@ -86,14 +86,19 @@
           </li>
         </ul>
       </div>
+      <ul class="selectPage" if.bind="isArrayDisplayed">
+        <li>
+          ${selectedChildArr} hello
+        </li>
+      </ul>
     </div>
 
     <div class="button-wrapper">
-      <button id=${selectedButtoncolor}>
+      <button id=${selectedButtoncolor} click.delegate="showChildArr()">
         ${totalSelected} ${multipleProduct} selected
       </button>
       <div class="bottom-buttons">
-        <button class="cancel-button">CANCEL</button>
+        <button class="cancel-button" click.delegate="cancelSelection()" id=${addCancelbuttoncolor}>CANCEL</button>
         <button class="add-button" id=${addButtoncolor}>ADD</button>
       </div>
     </div>

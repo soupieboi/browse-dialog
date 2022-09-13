@@ -29,6 +29,10 @@ export class Challenge {
   multipleProduct: string = 'products';
   selectedButtoncolor: string ='no-product-selected';
   addButtoncolor: string = 'inactive-add-button';
+  addCancelbuttoncolor: string = 'cannot-cancel';
+  isContentShowing: boolean = true;
+  isSelectpageAvailable: boolean = false;
+  isArrayDisplayed: boolean = false;
 
   constructor(
     private supplierService: SupplierService,
@@ -100,38 +104,40 @@ export class Challenge {
       this.multipleProduct = 'product'
       this.selectedButtoncolor = 'product-is-selected'
       this.addButtoncolor = 'active-add-button'
+      this.isSelectpageAvailable = true;
     } else if (this.totalSelected > 1) {
       this.multipleProduct = 'products'
       this.selectedButtoncolor = 'product-is-selected'
       this.addButtoncolor = 'active-add-button'
+      this.isSelectpageAvailable = true;
     } else if (this.totalSelected < 1) {
       this.multipleProduct = 'products'
       this.selectedButtoncolor = 'no-product-selected'
       this.addButtoncolor = 'inactive-add-button'
+      this.isSelectpageAvailable = false;
     }
-
 
     console.log(this.selectedChildArr)
     
     return true;
   }
 
-  checkSelected(childproduct: string) {
-    let inputs = document.getElementsByClassName('productCount');
-
-    // if (this.inputIsBlur = true) {
-    // for (let index = 0; index < inputs.length; index++) {
-    //   console.log((inputs[index] as HTMLInputElement).value);   
-    //   }
-    // }
-    
-    console.log(childproduct)
-
-
+  showChildArr() {
+    if (this.isSelectpageAvailable === true) {
+      this.isContentShowing = false;
+      this.showProductList = false;
+      this.title = 'selection';
+      this.isArrayDisplayed = true;
+      this.addCancelbuttoncolor = 'canCancel';
+    }
   }
 
-  getUserInput() {
-
-
+  cancelSelection() {
+    if (this.isArrayDisplayed = true) {
+      this.addCancelbuttoncolor = 'cannotCancel';
+      this.isContentShowing = true;
+      this.showProductList = true;
+      this.isArrayDisplayed = false;
+    }
   }
 }
