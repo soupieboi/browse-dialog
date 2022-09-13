@@ -26,6 +26,9 @@ export class Challenge {
   inputIsBlur: boolean = true;
   totalSelected: number = 0;
   selectedChildArr: string[] = [];
+  multipleProduct: string = 'products';
+  selectedButtoncolor: string ='no-product-selected';
+  addButtoncolor: string = 'inactive-add-button';
 
   constructor(
     private supplierService: SupplierService,
@@ -90,6 +93,23 @@ export class Challenge {
         this.selectedChildArr.splice(duplicateChildProduct, 1)
       }
     }
+
+    this.totalSelected = this.selectedChildArr.length
+
+    if (this.totalSelected === 1) {
+      this.multipleProduct = 'product'
+      this.selectedButtoncolor = 'product-is-selected'
+      this.addButtoncolor = 'active-add-button'
+    } else if (this.totalSelected > 1) {
+      this.multipleProduct = 'products'
+      this.selectedButtoncolor = 'product-is-selected'
+      this.addButtoncolor = 'active-add-button'
+    } else if (this.totalSelected < 1) {
+      this.multipleProduct = 'products'
+      this.selectedButtoncolor = 'no-product-selected'
+      this.addButtoncolor = 'inactive-add-button'
+    }
+
 
     console.log(this.selectedChildArr)
     

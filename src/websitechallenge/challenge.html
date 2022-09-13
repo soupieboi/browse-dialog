@@ -89,12 +89,12 @@
     </div>
 
     <div class="button-wrapper">
-      <button class="product-selected">
-        ${updatedTotalSelected} product selected
+      <button id=${selectedButtoncolor}>
+        ${totalSelected} ${multipleProduct} selected
       </button>
       <div class="bottom-buttons">
         <button class="cancel-button">CANCEL</button>
-        <button class="add-button" click.delegate="checkSelected()">ADD</button>
+        <button class="add-button" id=${addButtoncolor}>ADD</button>
       </div>
     </div>
   </div>
