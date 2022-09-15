@@ -1,4 +1,5 @@
 $hovercolor: rgba(47, 141, 248, 0.99);
+$activeaddbutton:#3E4760;
 
 * {
   padding: 0;
@@ -172,6 +173,36 @@ $hovercolor: rgba(47, 141, 248, 0.99);
     border: 1px solid #c4c4c4;
     border-radius: 3px;
   }
+  #product-is-selected {
+    color: #808285;
+    transition: 0.13s ease-in;
+  }
+  #active-add-button {
+    background: $activeaddbutton;
+    transition: 0.13s ease-in;
+  }
+  #canCancel {
+    background: rgb(255, 92, 92);
+    color: black;
+    transition: 0.13s ease-in;
+  }
+}
+
+.selectPage{
+    margin-top: -350px;
+    overflow-y: auto;
+    max-height: 440px;
+    li {
+      list-style: none;
+      background: white;
+      padding-top: 9.75px;
+      padding-bottom: 9.75px;
+      border-top: none;
+      border-radius: 5px;
+      padding-left: 20px;
+      border: 1px solid #e5e5e5;
+      overflow-x: hidden;
+    }
 }
 
 .aurelia-hide {

@@ -34,7 +34,7 @@
           placeholder="${searchPlaceHolder}"
         />
       </div>
-      <div class="supplier-list" if.bind="!showProductList">
+      <div class="supplier-list" if.bind="!showProductList" show.bind="isContentShowing">
         <ul>
           <li class="items" repeat.for="supplier of suppliers">
             <a
@@ -70,7 +70,9 @@
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc()"
+                  click.delegate="checkboxfunc(childProduct.name, childProduct.id)"
+                  model.bind="childProduct.id"
+                  checked.bind="childProductIdArr"
                 />
                 <a href="#" class="childproduct-a">${childProduct.name} </a>
                 <input
@@ -78,22 +80,28 @@
                   class="productCount"
                   min="0"
                   placeholder="..."
-                  oninput="getUserInput()"
+                  change.delegate="checkSelected()"
+                  blur.delegate="inputIsBlur = true"
                 />
               </li>
             </ul>
           </li>
         </ul>
       </div>
+      <ul class="selectPage" if.bind="isArrayDisplayed">
+        <li>
+          ${selectedChildArr} hello
+        </li>
+      </ul>
     </div>
 
     <div class="button-wrapper">
-      <button class="product-selected">
-        ${updatedTotalSelected} product selected
+      <button id=${selectedButtoncolor} click.delegate="showChildArr()">
+        ${totalSelected} ${multipleProduct} selected
       </button>
       <div class="bottom-buttons">
-        <button class="cancel-button">CANCEL</button>
-        <button class="add-button" click.delegate="checkSelected()">ADD</button>
+        <button class="cancel-button" click.delegate="cancelSelection()" id=${addCancelbuttoncolor}>CANCEL</button>
+        <button class="add-button" id=${addButtoncolor}>ADD</button>
       </div>
     </div>
   </div>

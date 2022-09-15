@@ -1,6 +1,7 @@
 import { autoinject } from 'aurelia-framework';
 import { SupplierService, Supplier } from './supplier.service';
-import { ProductService, ParentProduct } from './product.service';
+import { ProductService, ParentProduct, ChildProduct } from './product.service';
+import { on } from 'events';
 
 @autoinject
 export class Challenge {
@@ -19,8 +20,20 @@ export class Challenge {
   isProductDropDownActive: boolean = false;
   changeHoverEffect: string = 'nohoverproductlist';
   isChecked: boolean = false;
+  currentChild: string;
   isReadOnly: boolean = true;
   readonlyProperty: string = 'readonly';
+  inputIsBlur: boolean = true;
+  totalSelected: number = 0;
+  selectedChildArr: string[] = [];
+  multipleProduct: string = 'products';
+  selectedButtoncolor: string ='no-product-selected';
+  addButtoncolor: string = 'inactive-add-button';
+  addCancelbuttoncolor: string = 'cannot-cancel';
+  isContentShowing: boolean = true;
+  isSelectpageAvailable: boolean = false;
+  isArrayDisplayed: boolean = false;
+  childProductIdArr: string[] = [];
 
   constructor(
     private supplierService: SupplierService,
@@ -75,31 +88,72 @@ export class Challenge {
     this.isProductDropDownActive = !this.isProductDropDownActive;
   }
 
-  checkboxfunc() {
-    if (this.isChecked === false) {
-      this.isChecked = true;
-      console.log('now true!');
-    } else {
-      this.isChecked = false;
-      console.log('now false!');
+  checkboxfunc(childproduct: string, childId: string) {
+    if (!this.selectedChildArr.includes(childproduct)) {
+      this.selectedChildArr.push(childproduct)
+    } else if (this.selectedChildArr.includes(childproduct)) {
+      let duplicateChildProduct = this.selectedChildArr.indexOf(childproduct)
+      
+      if (duplicateChildProduct > -1) {
+        this.selectedChildArr.splice(duplicateChildProduct, 1)
+      }
     }
+
+    this.totalSelected = this.selectedChildArr.length
+
+    if (this.totalSelected === 1) {
+      this.multipleProduct = 'product'
+      this.selectedButtoncolor = 'product-is-selected'
+      this.addButtoncolor = 'active-add-button'
+      this.isSelectpageAvailable = true;
+    } else if (this.totalSelected > 1) {
+      this.multipleProduct = 'products'
+      this.selectedButtoncolor = 'product-is-selected'
+      this.addButtoncolor = 'active-add-button'
+      this.isSelectpageAvailable = true;
+    } else if (this.totalSelected < 1) {
+      this.multipleProduct = 'products'
+      this.selectedButtoncolor = 'no-product-selected'
+      this.addButtoncolor = 'inactive-add-button'
+      this.isSelectpageAvailable = false;
+    }
+
+    if (!this.childProductIdArr.includes(childId)) {
+      this.childProductIdArr.push(childId)
+    } else if (this.childProductIdArr.includes(childId)) {
+      let duplicateChildId = this.childProductIdArr.indexOf(childId)
+      
+      if (duplicateChildId > -1) {
+        this.childProductIdArr.splice(duplicateChildId, 1)
+      }
+    }
+
+    console.log(this.childProductIdArr)
+    console.log(this.selectedChildArr)
+    
     return true;
   }
 
-  checkSelected() {
-    let inputs = document.getElementsByClassName('productCount');
-
-    for (let index = 0; index < inputs.length; index++) {
-      console.log((inputs[index] as HTMLInputElement).value);
+  showChildArr() {
+    if (this.isSelectpageAvailable === true) {
+      this.isContentShowing = false;
+      this.showProductList = false;
+      this.title = 'selection';
+      this.isArrayDisplayed = true;
+      this.addCancelbuttoncolor = 'canCancel';
     }
-
-    // console.log(input);
-    // if (0 != input.length) {
-    //   console.log(input);
-    // }
   }
 
-  getUserInput() {
-    console.log(this.checkSelected());
+  cancelSelection() {
+    if (this.isArrayDisplayed = true) {
+      this.addCancelbuttoncolor = 'cannotCancel';
+      this.isContentShowing = true;
+      this.showProductList = true;
+      this.isArrayDisplayed = false;
+    }
+  }
+
+  rememberChecked() {
+    console.log(this.childProductIdArr)
   }
 }
