@@ -101,7 +101,7 @@ export class Challenge {
     return true;
   }
 
-  showChildArr() {
+  showChildren() {
     this.isContentShowing = false;
     this.showProductList = false;
     this.title = 'selection';
@@ -115,5 +115,9 @@ export class Challenge {
       this.showArray = false;
       this.title = this.returnFromSelectionTitle;
     }
+  }
+
+  getProductAmount(productAmount: number) {
+    console.log(productAmount);
   }
 }

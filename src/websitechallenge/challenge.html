@@ -78,7 +78,7 @@
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct, childProduct.id)"
+                  click.delegate="checkboxfunc(childProduct, childProduct.id, productAmount)"
                   model.bind="childProduct.id"
                   checked.bind="childProductIds"
                 />
@@ -104,7 +104,7 @@
       <button
         type="submit"
         class="${selectedChildren.length > 0 ? 'active': ''}"
-        click.trigger="showChildArr()"
+        click.trigger="showChildren()"
         disabled.bind="selectedChildren.length === 0"
       >
         ${selectedChildren.length}
@@ -113,7 +113,7 @@
       </button>
       <div class="bottom-buttons">
         <button
-          class="${isArrayDisplayed === true && selectedChildren.length > 0 ? 'cancelColor': ''}"
+          class="${showArray === true && selectedChildren.length > 0 ? 'cancelColor': ''}"
           click.trigger="cancelSelection()"
           disabled.bind="isArrayDisplayed === false"
         >
