@@ -5,35 +5,25 @@ import { ProductService, ParentProduct, ChildProduct } from './product.service';
 @autoinject
 export class Challenge {
   suppliers: Supplier[];
-  title: string = 'Browse';
-  searchPlaceHolder: string = 'Search suppliers';
-  showModal: boolean = true;
-  number: number;
   products: ParentProduct[];
-  showProductList: boolean = false;
-  showProductChildren: boolean = false;
-  supplierPage: boolean = true;
-  rotatedArrow: string = 'arrow-right';
-  showChildInfo: boolean = false;
+  selectedChildren: string[] = [];
+  childProductIds: string[] = [];
+
+  title: string = 'Browse';
+  returnFromSelectionTitle: string;
   selectedParentProduct: string = null;
-  isProductDropDownActive: boolean = false;
-  changeHoverEffect: string = 'nohoverproductlist';
-  isChecked: boolean = false;
-  currentChild: string;
-  isReadOnly: boolean = true;
-  readonlyProperty: string = 'readonly';
-  inputIsBlur: boolean = true;
-  totalSelected: number = 0;
-  selectedChildArr: string[] = [];
-  multipleProduct: string = 'products';
-  selectedButtoncolor: string = 'no-product-selected';
+  searchPlaceHolder: string = 'Search suppliers';
   addButtoncolor: string = 'inactive-add-button';
   addCancelbuttoncolor: string = 'cannot-cancel';
+  changeHoverEffect: string = 'nohoverproductlist';
+
+  showModal: boolean = true;
+  supplierPage: boolean = true;
   isContentShowing: boolean = true;
-  isSelectpageAvailable: boolean = false;
+  showProductList: boolean = false;
   isArrayDisplayed: boolean = false;
-  childProductIdArr: string[] = [];
-  returnFromSelectionTitle: string;
+  showProductChildren: boolean = false;
+  isProductDropDownActive: boolean = false;
 
   constructor(
     private supplierService: SupplierService,
@@ -90,59 +80,55 @@ export class Challenge {
   }
 
   checkboxfunc(childproduct: string, childId: string) {
-    if (!this.selectedChildArr.includes(childproduct)) {
-      this.selectedChildArr.push(childproduct);
-    } else if (this.selectedChildArr.includes(childproduct)) {
-      let duplicateChildProduct = this.selectedChildArr.indexOf(childproduct);
+    if (!this.selectedChildren.includes(childproduct)) {
+      this.selectedChildren.push(childproduct);
+    } else if (this.selectedChildren.includes(childproduct)) {
+      let duplicateChildProduct = this.selectedChildren.indexOf(childproduct);
 
       if (duplicateChildProduct > -1) {
-        this.selectedChildArr.splice(duplicateChildProduct, 1);
+        this.selectedChildren.splice(duplicateChildProduct, 1);
       }
     }
 
-    this.totalSelected = this.selectedChildArr.length;
+    // if (this.totalSelected === 1) {
+    //   this.multipleProduct = 'product';
+    //   this.selectedButtoncolor = 'product-is-selected';
+    //   this.addButtoncolor = 'active-add-button';
+    //   this.isSelectpageAvailable = true;
+    // } else if (this.totalSelected > 1) {
+    //   this.multipleProduct = 'products';
+    //   this.selectedButtoncolor = 'product-is-selected';
+    //   this.addButtoncolor = 'active-add-button';
+    //   this.isSelectpageAvailable = true;
+    // } else if (this.totalSelected < 1) {
+    //   this.multipleProduct = 'products';
+    //   this.selectedButtoncolor = 'no-product-selected';
+    //   this.addButtoncolor = 'inactive-add-button';
+    //   this.isSelectpageAvailable = false;
+    // }
 
-    if (this.totalSelected === 1) {
-      this.multipleProduct = 'product';
-      this.selectedButtoncolor = 'product-is-selected';
-      this.addButtoncolor = 'active-add-button';
-      this.isSelectpageAvailable = true;
-    } else if (this.totalSelected > 1) {
-      this.multipleProduct = 'products';
-      this.selectedButtoncolor = 'product-is-selected';
-      this.addButtoncolor = 'active-add-button';
-      this.isSelectpageAvailable = true;
-    } else if (this.totalSelected < 1) {
-      this.multipleProduct = 'products';
-      this.selectedButtoncolor = 'no-product-selected';
-      this.addButtoncolor = 'inactive-add-button';
-      this.isSelectpageAvailable = false;
-    }
-
-    if (!this.childProductIdArr.includes(childId)) {
-      this.childProductIdArr.push(childId);
-    } else if (this.childProductIdArr.includes(childId)) {
-      let duplicateChildId = this.childProductIdArr.indexOf(childId);
+    if (!this.childProductIds.includes(childId)) {
+      this.childProductIds.push(childId);
+    } else if (this.childProductIds.includes(childId)) {
+      let duplicateChildId = this.childProductIds.indexOf(childId);
 
       if (duplicateChildId > -1) {
-        this.childProductIdArr.splice(duplicateChildId, 1);
+        this.childProductIds.splice(duplicateChildId, 1);
       }
     }
 
-    console.log(this.childProductIdArr);
-    console.log(this.selectedChildArr);
+    console.log(this.childProductIds);
+    console.log(this.selectedChildren);
 
     return true;
   }
 
   showChildArr() {
-    if (this.isSelectpageAvailable === true) {
-      this.isContentShowing = false;
-      this.showProductList = false;
-      this.title = 'selection';
-      this.isArrayDisplayed = true;
-      this.addCancelbuttoncolor = 'canCancel';
-    }
+    this.isContentShowing = false;
+    this.showProductList = false;
+    this.title = 'selection';
+    this.isArrayDisplayed = true;
+    this.addCancelbuttoncolor = 'canCancel';
   }
 
   cancelSelection() {
@@ -156,6 +142,6 @@ export class Challenge {
   }
 
   rememberChecked() {
-    console.log(this.childProductIdArr);
+    console.log(this.childProductIds);
   }
 }

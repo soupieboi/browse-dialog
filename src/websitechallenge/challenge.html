@@ -2,12 +2,7 @@
   <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
   <button type="button" click.delegate="toggleModal()">Open Modal</button>
-  <button
-    type="button"
-    click.delegate="filterProductChildList(selectedProduct)"
-  >
-    test me!
-  </button>
+  <button type="button" click.delegate="testButton()">test me!</button>
 
   <div class="modal-body" show.bind="showModal">
     <div class="modal-content">
@@ -93,23 +88,26 @@
         </ul>
       </div>
       <ul class="selectPage" if.bind="isArrayDisplayed">
-        <li>${selectedChildArr}</li>
+        <li repeat.for="child of selectedChildArr ">${child}</li>
       </ul>
     </div>
 
     <div class="button-wrapper">
-      <button id="${selectedButtoncolor}" click.delegate="showChildArr()">
-        ${totalSelected} ${multipleProduct} selected
+      <button
+        type="submit"
+        class="${selectedChildArr.length > 0 ? 'active': ''}"
+        click.trigger="showChildArr()"
+        disabled.bind="selectedChildArr.length === 0"
+      >
+        ${selectedChildArr.length}
+        <span>${selectedChildArr.length != 1 ? 'products' : 'product' }</span>
+        selected
       </button>
       <div class="bottom-buttons">
-        <button
-          class="cancel-button"
-          click.delegate="cancelSelection()"
-          id="${addCancelbuttoncolor}"
-        >
+        <button class="cancel-button" click.delegate="cancelSelection()">
           CANCEL
         </button>
-        <button class="add-button" id="${addButtoncolor}">ADD</button>
+        <button class="add-button">ADD</button>
       </div>
     </div>
   </div>

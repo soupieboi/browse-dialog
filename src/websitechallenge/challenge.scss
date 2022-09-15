@@ -165,6 +165,7 @@ $activeaddbutton: #3e4760;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   button {
     padding: 12px 24px;
     font-weight: 400;
@@ -172,15 +173,18 @@ $activeaddbutton: #3e4760;
     color: #c4c4c4;
     border: 1px solid #c4c4c4;
     border-radius: 3px;
+
+    &.active {
+      color: #808285;
+      transition: 0.13s ease-in;
+    }
   }
-  #product-is-selected {
-    color: #808285;
-    transition: 0.13s ease-in;
-  }
+
   #active-add-button {
     background: $activeaddbutton;
     transition: 0.13s ease-in;
   }
+
   #canCancel {
     background: rgb(255, 92, 92);
     color: black;
