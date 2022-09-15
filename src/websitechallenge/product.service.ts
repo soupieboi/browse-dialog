@@ -26,6 +26,10 @@ export interface ChildProduct {
   purchasePrices: PurchasePrice[];
 }
 
+export interface SelectedChildProduct extends ChildProduct {
+  isSelected: boolean;
+}
+
 export interface PurchasePrice {
   price: number;
   currency: string;

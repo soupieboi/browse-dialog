@@ -1,7 +1,9 @@
 <template>
   <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
-  <button type="button" click.delegate="toggleModal()">Open Modal</button>
+  <button type="button" click.delegate="toggleModalVisible()()">
+    Open Modal
+  </button>
   <button type="button" click.delegate="testButton()">test me!</button>
 
   <div class="modal-body" show.bind="showModal">
@@ -17,7 +19,11 @@
         </button>
         <h3 class="modalname">${title}</h3>
 
-        <button type="button" class="modalclose" click.delegate="toggleModal()">
+        <button
+          type="button"
+          class="modalclose"
+          click.delegate="toggleModalVisible()"
+        >
           <img src="img/x.png" alt="x" />
         </button>
       </header>
@@ -69,18 +75,17 @@
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct.name, childProduct.id)"
+                  click.delegate="checkboxfunc(childProduct, childProduct.id)"
                   model.bind="childProduct.id"
-                  checked.bind="childProductIdArr"
+                  checked.bind="childProductIds"
                 />
                 <a href="#" class="childproduct-a">${childProduct.name} </a>
                 <input
                   type="number"
                   class="productCount"
                   min="0"
+                  if.bind="childProduct.isSelected"
                   placeholder="..."
-                  change.delegate="checkSelected()"
-                  blur.delegate="inputIsBlur = true"
                 />
               </li>
             </ul>
@@ -88,26 +93,32 @@
         </ul>
       </div>
       <ul class="selectPage" if.bind="isArrayDisplayed">
-        <li repeat.for="child of selectedChildArr ">${child}</li>
+        <li repeat.for="child of selectedChildren">${child}</li>
       </ul>
     </div>
 
     <div class="button-wrapper">
       <button
         type="submit"
-        class="${selectedChildArr.length > 0 ? 'active': ''}"
+        class="${selectedChildren.length > 0 ? 'active': ''}"
         click.trigger="showChildArr()"
-        disabled.bind="selectedChildArr.length === 0"
+        disabled.bind="selectedChildren.length === 0"
       >
-        ${selectedChildArr.length}
-        <span>${selectedChildArr.length != 1 ? 'products' : 'product' }</span>
+        ${selectedChildren.length}
+        <span>${selectedChildren.length != 1 ? 'products' : 'product' }</span>
         selected
       </button>
       <div class="bottom-buttons">
-        <button class="cancel-button" click.delegate="cancelSelection()">
+        <button
+          class="${isArrayDisplayed === true && selectedChildren.length > 0 ? 'cancelColor': ''}"
+          click.trigger="cancelSelection()"
+          disabled.bind="isArrayDisplayed === false"
+        >
           CANCEL
         </button>
-        <button class="add-button">ADD</button>
+        <button class="${selectedChildren.length > 0 ? 'addColor': ''}">
+          ADD
+        </button>
       </div>
     </div>
   </div>

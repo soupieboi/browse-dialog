@@ -1,6 +1,10 @@
 import { autoinject } from 'aurelia-framework';
 import { SupplierService, Supplier } from './supplier.service';
-import { ProductService, ParentProduct, ChildProduct } from './product.service';
+import {
+  ProductService,
+  ParentProduct,
+  SelectedChildProduct,
+} from './product.service';
 
 @autoinject
 export class Challenge {
@@ -38,9 +42,8 @@ export class Challenge {
     let paginatedItem = await this.productService.get();
     this.products = paginatedItem.data;
   }
-  // open and close modal
 
-  toggleModal() {
+  toggleModalVisible() {
     this.showModal = !this.showModal;
   }
 
@@ -79,33 +82,19 @@ export class Challenge {
     this.isProductDropDownActive = !this.isProductDropDownActive;
   }
 
-  checkboxfunc(childproduct: string, childId: string) {
-    if (!this.selectedChildren.includes(childproduct)) {
-      this.selectedChildren.push(childproduct);
-    } else if (this.selectedChildren.includes(childproduct)) {
-      let duplicateChildProduct = this.selectedChildren.indexOf(childproduct);
+  checkboxfunc(childproduct: SelectedChildProduct, childId: string) {
+    childproduct.isSelected = !childproduct.isSelected;
+    if (!this.selectedChildren.includes(childproduct.name)) {
+      this.selectedChildren.push(childproduct.name);
+    } else if (this.selectedChildren.includes(childproduct.name)) {
+      let duplicateChildProduct = this.selectedChildren.indexOf(
+        childproduct.name
+      );
 
       if (duplicateChildProduct > -1) {
         this.selectedChildren.splice(duplicateChildProduct, 1);
       }
     }
-
-    // if (this.totalSelected === 1) {
-    //   this.multipleProduct = 'product';
-    //   this.selectedButtoncolor = 'product-is-selected';
-    //   this.addButtoncolor = 'active-add-button';
-    //   this.isSelectpageAvailable = true;
-    // } else if (this.totalSelected > 1) {
-    //   this.multipleProduct = 'products';
-    //   this.selectedButtoncolor = 'product-is-selected';
-    //   this.addButtoncolor = 'active-add-button';
-    //   this.isSelectpageAvailable = true;
-    // } else if (this.totalSelected < 1) {
-    //   this.multipleProduct = 'products';
-    //   this.selectedButtoncolor = 'no-product-selected';
-    //   this.addButtoncolor = 'inactive-add-button';
-    //   this.isSelectpageAvailable = false;
-    // }
 
     if (!this.childProductIds.includes(childId)) {
       this.childProductIds.push(childId);
@@ -117,9 +106,7 @@ export class Challenge {
       }
     }
 
-    console.log(this.childProductIds);
-    console.log(this.selectedChildren);
-
+    // Checks the checkbox
     return true;
   }
 
@@ -128,7 +115,6 @@ export class Challenge {
     this.showProductList = false;
     this.title = 'selection';
     this.isArrayDisplayed = true;
-    this.addCancelbuttoncolor = 'canCancel';
   }
 
   cancelSelection() {
@@ -139,9 +125,5 @@ export class Challenge {
       this.isArrayDisplayed = false;
       this.title = this.returnFromSelectionTitle;
     }
-  }
-
-  rememberChecked() {
-    console.log(this.childProductIds);
   }
 }
