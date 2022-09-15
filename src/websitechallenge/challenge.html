@@ -32,7 +32,7 @@
         <input
           type="text"
           id="modal-input"
-          placeholder="${searchPlaceHolder}"
+          placeholder="${supplierPage === false ? 'Search Products' : 'Search suppliers'}"
         />
       </div>
       <div
@@ -55,7 +55,10 @@
 
       <div class="product-list" if.bind="showProductList">
         <ul>
-          <li class="${changeHoverEffect}" repeat.for="product of products">
+          <li
+            class="isProductDropDownActive === true ? '' : 'nohoverproductlist'"
+            repeat.for="product of products"
+          >
             <a
               href="#"
               id="onlypaddingright"
@@ -92,7 +95,7 @@
           </li>
         </ul>
       </div>
-      <ul class="selectPage" if.bind="isArrayDisplayed">
+      <ul class="selectPage" if.bind="showArray">
         <li repeat.for="child of selectedChildren">${child}</li>
       </ul>
     </div>

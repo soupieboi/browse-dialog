@@ -16,16 +16,12 @@ export class Challenge {
   title: string = 'Browse';
   returnFromSelectionTitle: string;
   selectedParentProduct: string = null;
-  searchPlaceHolder: string = 'Search suppliers';
-  addButtoncolor: string = 'inactive-add-button';
-  addCancelbuttoncolor: string = 'cannot-cancel';
-  changeHoverEffect: string = 'nohoverproductlist';
 
   showModal: boolean = true;
   supplierPage: boolean = true;
   isContentShowing: boolean = true;
   showProductList: boolean = false;
-  isArrayDisplayed: boolean = false;
+  showArray: boolean = false;
   showProductChildren: boolean = false;
   isProductDropDownActive: boolean = false;
 
@@ -52,7 +48,6 @@ export class Challenge {
     await this.getProducts();
     this.showProductList = true;
     this.supplierPage = false;
-    this.searchPlaceHolder = 'Search Products';
     this.showProductChildren = false;
     this.showChildProducts(supplier.id);
     this.returnFromSelectionTitle = supplier.name;
@@ -62,16 +57,12 @@ export class Challenge {
     this.title = 'Browse';
     this.showProductList = false;
     this.supplierPage = true;
-    this.searchPlaceHolder = 'Search suppliers';
     this.selectedParentProduct = null;
   }
 
   selectParentProduct(productId: string) {
     this.selectedParentProduct = productId;
     this.toggleProductDropdown();
-    if (this.isProductDropDownActive === true) {
-      this.changeHoverEffect = '#';
-    }
   }
 
   showChildProducts(supplierId: string) {
@@ -114,15 +105,14 @@ export class Challenge {
     this.isContentShowing = false;
     this.showProductList = false;
     this.title = 'selection';
-    this.isArrayDisplayed = true;
+    this.showArray = true;
   }
 
   cancelSelection() {
-    if ((this.isArrayDisplayed = true)) {
-      this.addCancelbuttoncolor = 'cannotCancel';
+    if ((this.showArray = true)) {
       this.isContentShowing = true;
       this.showProductList = true;
-      this.isArrayDisplayed = false;
+      this.showArray = false;
       this.title = this.returnFromSelectionTitle;
     }
   }
