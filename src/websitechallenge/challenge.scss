@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 $hovercolor: rgba(47, 141, 248, 0.99);
-$activeaddbutton:#3E4760;
+$activeaddbutton: #3e4760;
 
 * {
   padding: 0;
@@ -189,237 +188,24 @@ $activeaddbutton:#3E4760;
   }
 }
 
-.selectPage{
-    margin-top: -350px;
-    overflow-y: auto;
-    max-height: 440px;
-    li {
-      list-style: none;
-      background: white;
-      padding-top: 9.75px;
-      padding-bottom: 9.75px;
-      border-top: none;
-      border-radius: 5px;
-      padding-left: 20px;
-      border: 1px solid #e5e5e5;
-      overflow-x: hidden;
-    }
-}
-
-.aurelia-hide {
-  display: block !important;
-  visibility: hidden;
-}
-=======
-$hovercolor: rgba(47, 141, 248, 0.99);
-$activeaddbutton:#3E4760;
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', 'open sans', 'Overpass', sans-serif;
-}
-
-.modal-body {
-  width: 751px;
-  height: 661px;
-  margin: 0 auto;
-  border-radius: 10px;
-  padding: 20px 32px;
-  border: 1px solid #c4c4c4;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-
-  .productlist ul {
-    max-height: 450px;
-    overflow-y: auto;
-  }
-
-  .nohoverproductlist:hover {
-    background: $hovercolor;
-    transition: 0.13s ease-in-out;
-  }
-}
-
-.modal-content {
-  height: 570px;
-  .items:hover {
-    background: $hovercolor;
-    transition: 0.13s ease;
-  }
-  .supplier-list {
-    ul {
-      margin-top: 24px;
-      li {
-        list-style: none;
-        background: white;
-        width: 686px;
-        padding-top: 9.75px;
-        padding-bottom: 9.75px;
-        border-top: none;
-        border-radius: 5px;
-        padding-left: 20px;
-        border: 1px solid #e5e5e5;
-        overflow-y: auto;
-        overflow-x: hidden;
-      }
-    }
-    a {
-      text-decoration: none;
-      color: black;
-      padding-right: 900px;
-      padding-top: 8px;
-      padding-bottom: 8px;
-    }
-  }
-
-  .product-list {
-    ul {
-      margin-top: 24px;
-      overflow-y: auto;
-      max-height: 440px;
-      li {
-        list-style: none;
-        background: white;
-        padding-top: 9.75px;
-        padding-bottom: 9.75px;
-        border-top: none;
-        border-radius: 5px;
-        padding-left: 20px;
-        border: 1px solid #e5e5e5;
-        overflow-x: hidden;
-        #onlypaddingright {
-          padding-right: 400px;
-          padding-top: 8px;
-          padding-bottom: 8px;
-        }
-      }
-      li:hover {
-        background: #f5f5f5;
-        transition: 0.13s ease-in-out;
-      }
-    }
-    .childproduct-ul {
-      margin-top: 0;
-      overflow-y: hidden;
-      overflow-x: hidden;
-      .childproduct-li {
-        margin-right: 24px;
-        margin-top: 5px;
-      }
-    }
-    a {
-      text-decoration: none;
-      color: black;
-      padding: 10px;
-      padding-left: 0;
-    }
-    .arrow {
-      margin-right: 16px;
-      margin-top: 4px;
-      transform: rotate(0deg);
-      float: right;
-    }
-    .productCount {
-      float: right;
-      margin-right: 12px;
-      border-radius: 4px;
-      max-width: 75px;
-      padding: 2px;
-    }
-  }
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    h3 {
-      background: white;
-      font-size: 20px;
-      line-height: 28px;
-    }
-
-    button {
-      background: white;
-      text-decoration: none;
-      border: none;
-    }
-  }
-}
-
-.modalsearchbox {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  padding: 11px 30px 11px 12px;
-  gap: 10px;
-  height: 42px;
-  margin-top: 20px;
-  background: #ffffff;
-  border: 1px solid #c4c4c4;
-  border-radius: 3px;
-
-  input {
-    text-decoration: none;
-    border: none;
+.selectPage {
+  margin-top: -350px;
+  overflow-y: auto;
+  max-height: 440px;
+  li {
+    list-style: none;
     background: white;
-    padding: 7px 400px 7px 12px;
-    outline: 0;
-
-    ::placeholder {
-      color: #c4c4c4;
-    }
+    padding-top: 9.75px;
+    padding-bottom: 9.75px;
+    border-top: none;
+    border-radius: 5px;
+    padding-left: 20px;
+    border: 1px solid #e5e5e5;
+    overflow-x: hidden;
   }
-}
-
-.button-wrapper {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  button {
-    padding: 12px 24px;
-    font-weight: 400;
-    font-size: 14px;
-    color: #c4c4c4;
-    border: 1px solid #c4c4c4;
-    border-radius: 3px;
-  }
-  #product-is-selected {
-    color: #808285;
-    transition: 0.13s ease-in;
-  }
-  #active-add-button {
-    background: $activeaddbutton;
-    transition: 0.13s ease-in;
-  }
-  #canCancel {
-    background: rgb(255, 92, 92);
-    color: black;
-    transition: 0.13s ease-in;
-  }
-}
-
-.selectPage{
-    margin-top: -350px;
-    overflow-y: auto;
-    max-height: 440px;
-    li {
-      list-style: none;
-      background: white;
-      padding-top: 9.75px;
-      padding-bottom: 9.75px;
-      border-top: none;
-      border-radius: 5px;
-      padding-left: 20px;
-      border: 1px solid #e5e5e5;
-      overflow-x: hidden;
-    }
 }
 
 .aurelia-hide {
   display: block !important;
   visibility: hidden;
 }
->>>>>>> e33ba789d936b4f47ac1d0d2dc97a6dbdf299dd0

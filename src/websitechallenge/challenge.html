@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <template>
   <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
@@ -35,7 +34,11 @@
           placeholder="${searchPlaceHolder}"
         />
       </div>
-      <div class="supplier-list" if.bind="!showProductList" show.bind="isContentShowing">
+      <div
+        class="supplier-list"
+        if.bind="!showProductList"
+        show.bind="isContentShowing"
+      >
         <ul>
           <li class="items" repeat.for="supplier of suppliers">
             <a
@@ -90,130 +93,24 @@
         </ul>
       </div>
       <ul class="selectPage" if.bind="isArrayDisplayed">
-        <li>
-          ${selectedChildArr} hello
-        </li>
+        <li>${selectedChildArr}</li>
       </ul>
     </div>
 
     <div class="button-wrapper">
-      <button id=${selectedButtoncolor} click.delegate="showChildArr()">
+      <button id="${selectedButtoncolor}" click.delegate="showChildArr()">
         ${totalSelected} ${multipleProduct} selected
       </button>
       <div class="bottom-buttons">
-        <button class="cancel-button" click.delegate="cancelSelection()" id=${addCancelbuttoncolor}>CANCEL</button>
-        <button class="add-button" id=${addButtoncolor}>ADD</button>
-      </div>
-    </div>
-  </div>
-</template>
-=======
-<template>
-  <h1 class="name">Modal Challenge</h1>
-  <require from="./challenge.scss"></require>
-  <button type="button" click.delegate="toggleModal()">Open Modal</button>
-  <button
-    type="button"
-    click.delegate="filterProductChildList(selectedProduct)"
-  >
-    test me!
-  </button>
-
-  <div class="modal-body" show.bind="showModal">
-    <div class="modal-content">
-      <header>
         <button
-          type="button"
-          class="modalback"
-          show.bind="showProductList"
-          click.delegate="backButton()"
+          class="cancel-button"
+          click.delegate="cancelSelection()"
+          id="${addCancelbuttoncolor}"
         >
-          <img src="img/arrow-left.png" alt="backarrow" />
+          CANCEL
         </button>
-        <h3 class="modalname">${title}</h3>
-
-        <button type="button" class="modalclose" click.delegate="toggleModal()">
-          <img src="img/x.png" alt="x" />
-        </button>
-      </header>
-      <div class="modalsearchbox">
-        <img src="img/search.png" alt="search" />
-        <input
-          type="text"
-          id="modal-input"
-          placeholder="${searchPlaceHolder}"
-        />
-      </div>
-      <div class="supplier-list" if.bind="!showProductList" show.bind="isContentShowing">
-        <ul>
-          <li class="items" repeat.for="supplier of suppliers">
-            <a
-              href="#"
-              click.delegate="selectSupplier(supplier)"
-              show.bind="supplierPage"
-            >
-              ${supplier.name}
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="product-list" if.bind="showProductList">
-        <ul>
-          <li class="${changeHoverEffect}" repeat.for="product of products">
-            <a
-              href="#"
-              id="onlypaddingright"
-              class="products"
-              click.delegate="selectParentProduct(product.id)"
-            >
-              <img src="./img/chevron-right.png" class="arrow" />${product.name}
-            </a>
-            <ul
-              if.bind="selectedParentProduct === product.id && isProductDropDownActive"
-              class="childproduct-ul"
-            >
-              <li
-                class="childproduct-li"
-                repeat.for="childProduct of product.childProducts"
-              >
-                <input
-                  type="checkbox"
-                  class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct.name, childProduct.id)"
-                  model.bind="childProduct.id"
-                  checked.bind="childProductIdArr"
-                />
-                <a href="#" class="childproduct-a">${childProduct.name} </a>
-                <input
-                  type="number"
-                  class="productCount"
-                  min="0"
-                  placeholder="..."
-                  change.delegate="checkSelected()"
-                  blur.delegate="inputIsBlur = true"
-                />
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <ul class="selectPage" if.bind="isArrayDisplayed">
-        <li>
-          ${selectedChildArr} hello
-        </li>
-      </ul>
-    </div>
-
-    <div class="button-wrapper">
-      <button id=${selectedButtoncolor} click.delegate="showChildArr()">
-        ${totalSelected} ${multipleProduct} selected
-      </button>
-      <div class="bottom-buttons">
-        <button class="cancel-button" click.delegate="cancelSelection()" id=${addCancelbuttoncolor}>CANCEL</button>
-        <button class="add-button" id=${addButtoncolor}>ADD</button>
+        <button class="add-button" id="${addButtoncolor}">ADD</button>
       </div>
     </div>
   </div>
 </template>
->>>>>>> e33ba789d936b4f47ac1d0d2dc97a6dbdf299dd0
