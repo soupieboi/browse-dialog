@@ -51,7 +51,10 @@
         show.bind="isContentShowing"
       >
         <ul>
-          <li class="items" repeat.for="supplier of suppliers">
+          <li
+            class="items"
+            repeat.for="supplier of suppliers | filter:['name']:query"
+          >
             <a
               href="#"
               click.delegate="selectSupplier(supplier)"
@@ -63,28 +66,22 @@
         </ul>
       </div>
 
-      <div class="product-list" if.bind="showProductList">
-        <ul>
-          <li
-            class="isProductDropDownActive === true ? '' : 'nohoverproductlist'"
-            repeat.for="product of products"
+      <ul class="product-list">
+        <li repeat.for="product of products">
+          <a
+            href="#"
+            class="products"
+            click.delegate="selectParentProduct(product.id)"
           >
-            <a
-              href="#"
-              id="onlypaddingright"
-              class="products"
-              click.delegate="selectParentProduct(product.id)"
-            >
-              <img src="./img/chevron-right.png" class="arrow" />${product.name}
-            </a>
-            <ul
-              if.bind="selectedParentProduct === product.id && isProductDropDownActive"
-              class="childproduct-ul"
-            >
-              <li
-                class="childproduct-li"
-                repeat.for="childProduct of product.childProducts"
-              >
+            ${product.name}
+            <img
+              src="./img/chevron-right.png"
+              class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
+            />
+          </a>
+          <ul if.bind="selectedParentProduct === product.id">
+            <li repeat.for="childProduct of product.childProducts">
+              <label>
                 <input
                   type="checkbox"
                   class="selectedProduct"
@@ -92,19 +89,20 @@
                   model.bind="childProduct.id"
                   checked.bind="childProductIds"
                 />
-                <a href="#" class="childproduct-a">${childProduct.name} </a>
-                <input
-                  type="number"
-                  class="productCount"
-                  min="0"
-                  if.bind="childProduct.isSelected"
-                  placeholder="..."
-                />
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+                ${childProduct.name}
+              </label>
+              <input
+                type="number"
+                class="productCount"
+                min="0"
+                if.bind="childProduct.isSelected"
+                placeholder="..."
+              />
+            </li>
+          </ul>
+        </li>
+      </ul>
+
       <ul class="selectPage" if.bind="showArray">
         <li repeat.for="child of selectedChildren">${child}</li>
       </ul>

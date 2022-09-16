@@ -5,9 +5,6 @@ import {
   ParentProduct,
   SelectedChildProduct,
 } from './product.service';
-import { isArray } from 'util';
-import { METHODS } from 'http';
-import { prototype } from 'events';
 
 @autoinject
 export class Challenge {
@@ -29,7 +26,7 @@ export class Challenge {
   showProductList: boolean = false;
   showArray: boolean = false;
   showProductChildren: boolean = false;
-  isProductDropDownActive: boolean = false;
+
   showToastNotification: boolean = false;
 
   constructor(
@@ -69,15 +66,10 @@ export class Challenge {
 
   selectParentProduct(productId: string) {
     this.selectedParentProduct = productId;
-    this.toggleProductDropdown();
   }
 
   showChildProducts(supplierId: string) {
     this.products = this.products.filter((c) => c.supplierId === supplierId);
-  }
-
-  toggleProductDropdown() {
-    this.isProductDropDownActive = !this.isProductDropDownActive;
   }
 
   checkboxfunc(childproduct: SelectedChildProduct, childId: string) {
@@ -132,33 +124,33 @@ export class Challenge {
   getProductAmount(productAmount: number) {
     console.log(productAmount);
   }
+}
 
-  queryChanged() {
-    console.log(this.query);
-
+export class FilterValueConverter {
+  toView(array: any[], property: any, query: string) {
     if (
-      this.query === void 0 ||
-      this.query === null ||
-      this.query === '' ||
-      !Array.isArray(this.suppliers)
+      query === void 0 ||
+      query === null ||
+      query === '' ||
+      !Array.isArray(array)
     ) {
-      return this.suppliers;
+      return array;
     }
 
-    const properties = Array.isArray(prototype) ? prototype : [prototype];
-    const term = String(this.query).toLowerCase();
+    const properties = Array.isArray(property) ? property : [property];
+    const term = String(query).toLowerCase();
 
-    let startsWithResults = this.suppliers.filter((query) =>
+    let startsWithResults = array.filter((entry) =>
       properties.some((prop) =>
-        String(query[prop]).toLowerCase().startsWith(term)
+        String(entry[prop]).toLowerCase().startsWith(term)
       )
     );
 
-    let containsResults = this.suppliers.filter((query) =>
+    let containsResults = array.filter((entry) =>
       properties.some(
         (prop) =>
-          !String(query[prop]).toLowerCase().startsWith(term) &&
-          String(query[prop]).toLowerCase().indexOf(term) >= 0
+          !String(entry[prop]).toLowerCase().startsWith(term) &&
+          String(entry[prop]).toLowerCase().indexOf(term) >= 0
       )
     );
 
