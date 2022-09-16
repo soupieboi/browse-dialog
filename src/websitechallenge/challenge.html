@@ -6,6 +6,14 @@
   </button>
   <button type="button" click.delegate="testButton()">test me!</button>
 
+  <div
+    class="${showToastNotification === true ? 'selectedToast' : 'hideToast'}"
+  >
+    <div class="greenBorder"></div>
+    <h3>${toastContainer}</h3>
+    <div class="elipse"></div>
+  </div>
+
   <div class="modal-body" show.bind="showModal">
     <div class="modal-content">
       <header>

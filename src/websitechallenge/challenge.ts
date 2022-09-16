@@ -5,6 +5,8 @@ import {
   ParentProduct,
   SelectedChildProduct,
 } from './product.service';
+import { filter } from 'minimatch';
+import { on } from 'events';
 
 @autoinject
 export class Challenge {
@@ -16,6 +18,7 @@ export class Challenge {
   title: string = 'Browse';
   returnFromSelectionTitle: string;
   selectedParentProduct: string = null;
+  toastContainer: string;
 
   showModal: boolean = true;
   supplierPage: boolean = true;
@@ -24,6 +27,7 @@ export class Challenge {
   showArray: boolean = false;
   showProductChildren: boolean = false;
   isProductDropDownActive: boolean = false;
+  showToastNotification: boolean = false;
 
   constructor(
     private supplierService: SupplierService,
@@ -77,6 +81,8 @@ export class Challenge {
     childproduct.isSelected = !childproduct.isSelected;
     if (!this.selectedChildren.includes(childproduct.name)) {
       this.selectedChildren.push(childproduct.name);
+      this.toastContainer = 'Added ' + childproduct.name + ' successfully.';
+      this.showToastNotification = true;
     } else if (this.selectedChildren.includes(childproduct.name)) {
       let duplicateChildProduct = this.selectedChildren.indexOf(
         childproduct.name
@@ -85,6 +91,9 @@ export class Challenge {
       if (duplicateChildProduct > -1) {
         this.selectedChildren.splice(duplicateChildProduct, 1);
       }
+
+      this.toastContainer = 'Removed ' + childproduct.name + ' successfully.';
+      this.showToastNotification = false;
     }
 
     if (!this.childProductIds.includes(childId)) {
