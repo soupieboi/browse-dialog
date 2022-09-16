@@ -4,7 +4,7 @@
   <button type="button" click.delegate="toggleModalVisible()">
     Open Modal
   </button>
-  <button type="button" click.delegate="testButton()">test me!</button>
+  <button type="button">test me!</button>
 
   <div
     class="${showToastNotification === true ? 'selectedToast' : 'hideToast'}"
@@ -35,14 +35,16 @@
           <img src="img/x.png" alt="x" />
         </button>
       </header>
+
       <div class="modalsearchbox">
         <img src="img/search.png" alt="search" />
         <input
           type="text"
-          id="modal-input"
           placeholder="${supplierPage === false ? 'Search Products' : 'Search suppliers'}"
+          value.bind="query & debounce:300"
         />
       </div>
+
       <div
         class="supplier-list"
         if.bind="!showProductList"

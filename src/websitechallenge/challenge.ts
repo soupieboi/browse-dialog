@@ -1,12 +1,13 @@
-import { autoinject } from 'aurelia-framework';
+import { autoinject, observable } from 'aurelia-framework';
 import { SupplierService, Supplier } from './supplier.service';
 import {
   ProductService,
   ParentProduct,
   SelectedChildProduct,
 } from './product.service';
-import { filter } from 'minimatch';
-import { on } from 'events';
+import { isArray } from 'util';
+import { METHODS } from 'http';
+import { prototype } from 'events';
 
 @autoinject
 export class Challenge {
@@ -14,6 +15,8 @@ export class Challenge {
   products: ParentProduct[];
   selectedChildren: string[] = [];
   childProductIds: string[] = [];
+  supplierSearchFilter: string[] = [];
+  @observable query: string;
 
   title: string = 'Browse';
   returnFromSelectionTitle: string;
@@ -34,7 +37,7 @@ export class Challenge {
     private productService: ProductService
   ) {}
 
-  async attached() {
+  async bind() {
     this.suppliers = await this.supplierService.get();
   }
 
@@ -128,5 +131,37 @@ export class Challenge {
 
   getProductAmount(productAmount: number) {
     console.log(productAmount);
+  }
+
+  queryChanged() {
+    console.log(this.query);
+
+    if (
+      this.query === void 0 ||
+      this.query === null ||
+      this.query === '' ||
+      !Array.isArray(this.suppliers)
+    ) {
+      return this.suppliers;
+    }
+
+    const properties = Array.isArray(prototype) ? prototype : [prototype];
+    const term = String(this.query).toLowerCase();
+
+    let startsWithResults = this.suppliers.filter((query) =>
+      properties.some((prop) =>
+        String(query[prop]).toLowerCase().startsWith(term)
+      )
+    );
+
+    let containsResults = this.suppliers.filter((query) =>
+      properties.some(
+        (prop) =>
+          !String(query[prop]).toLowerCase().startsWith(term) &&
+          String(query[prop]).toLowerCase().indexOf(term) >= 0
+      )
+    );
+
+    return Array.from(new Set(startsWithResults.concat(containsResults)));
   }
 }
