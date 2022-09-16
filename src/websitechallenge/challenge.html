@@ -1,13 +1,18 @@
 <template>
   <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
-  <button type="button" click.delegate="toggleModal()">Open Modal</button>
-  <button
-    type="button"
-    click.delegate="filterProductChildList(selectedProduct)"
-  >
-    test me!
+  <button type="button" click.delegate="toggleModalVisible()">
+    Open Modal
   </button>
+  <button type="button">test me!</button>
+
+  <div
+    class="${showToastNotification === true ? 'selectedToast' : 'hideToast'}"
+  >
+    <div class="greenBorder"></div>
+    <h3>${toastContainer}</h3>
+    <div class="elipse"></div>
+  </div>
 
   <div class="modal-body" show.bind="showModal">
     <div class="modal-content">
@@ -22,21 +27,34 @@
         </button>
         <h3 class="modalname">${title}</h3>
 
-        <button type="button" class="modalclose" click.delegate="toggleModal()">
+        <button
+          type="button"
+          class="modalclose"
+          click.delegate="toggleModalVisible()"
+        >
           <img src="img/x.png" alt="x" />
         </button>
       </header>
+
       <div class="modalsearchbox">
         <img src="img/search.png" alt="search" />
         <input
           type="text"
-          id="modal-input"
-          placeholder="${searchPlaceHolder}"
+          placeholder="${supplierPage === false ? 'Search Products' : 'Search suppliers'}"
+          value.bind="query & debounce:300"
         />
       </div>
-      <div class="supplier-list" if.bind="!showProductList" show.bind="isContentShowing">
+
+      <div
+        class="supplier-list"
+        if.bind="!showProductList"
+        show.bind="isContentShowing"
+      >
         <ul>
-          <li class="items" repeat.for="supplier of suppliers">
+          <li
+            class="items"
+            repeat.for="supplier of suppliers | filter:['name']:query"
+          >
             <a
               href="#"
               click.delegate="selectSupplier(supplier)"
@@ -48,61 +66,70 @@
         </ul>
       </div>
 
-      <div class="product-list" if.bind="showProductList">
-        <ul>
-          <li class="${changeHoverEffect}" repeat.for="product of products">
-            <a
-              href="#"
-              id="onlypaddingright"
-              class="products"
-              click.delegate="selectParentProduct(product.id)"
-            >
-              <img src="./img/chevron-right.png" class="arrow" />${product.name}</a> 
-            <h5>${product.id}</h5>
-            <ul
-              if.bind="selectedParentProduct === product.id && isProductDropDownActive"
-              class="childproduct-ul"
-            >
-              <li
-                class="childproduct-li"
-                repeat.for="childProduct of product.childProducts"
-              >
+      <ul class="product-list">
+        <li repeat.for="product of products">
+          <a
+            href="#"
+            class="products"
+            click.delegate="selectParentProduct(product.id)"
+          >
+            ${product.name}
+            <img
+              src="./img/chevron-right.png"
+              class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
+            />
+          </a>
+          <ul if.bind="selectedParentProduct === product.id">
+            <li repeat.for="childProduct of product.childProducts">
+              <label>
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct.name, childProduct.id)"
+                  click.delegate="checkboxfunc(childProduct, childProduct.id, productAmount)"
                   model.bind="childProduct.id"
-                  checked.bind="childProductIdArr"
+                  checked.bind="childProductIds"
                 />
-                <a href="#" class="childproduct-a">${childProduct.name} ${childProduct.sku}</a>
-                <input
-                  type="number"
-                  class="productCount"
-                  min="0"
-                  placeholder="..."
-                  change.delegate="checkSelected()"
-                  blur.delegate="inputIsBlur = true"
-                />
-                <h5 href="#" class="childproduct-sku">${childProduct.sku}</h5>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <ul class="selectPage" if.bind="isArrayDisplayed">
-        <li>
-          ${selectedChildArr} hello
+                ${childProduct.name}
+              </label>
+              <input
+                type="number"
+                class="productCount"
+                min="0"
+                if.bind="childProduct.isSelected"
+                placeholder="..."
+              />
+            </li>
+          </ul>
         </li>
+      </ul>
+
+      <ul class="selectPage" if.bind="showArray">
+        <li repeat.for="child of selectedChildren">${child}</li>
       </ul>
     </div>
 
     <div class="button-wrapper">
-      <button id=${selectedButtoncolor} click.delegate="showChildArr()">
-        ${totalSelected} ${multipleProduct} selected
+      <button
+        type="submit"
+        class="${selectedChildren.length > 0 ? 'active': ''}"
+        click.trigger="showChildren()"
+        disabled.bind="selectedChildren.length === 0"
+      >
+        ${selectedChildren.length}
+        <span>${selectedChildren.length != 1 ? 'products' : 'product' }</span>
+        selected
       </button>
       <div class="bottom-buttons">
-        <button class="cancel-button" click.delegate="cancelSelection()" id=${addCancelbuttoncolor}>CANCEL</button>
-        <button class="add-button" id=${addButtoncolor}>ADD</button>
+        <button
+          class="${showArray === true && selectedChildren.length > 0 ? 'cancelColor': ''}"
+          click.trigger="cancelSelection()"
+          disabled.bind="isArrayDisplayed === false"
+        >
+          CANCEL
+        </button>
+        <button class="${selectedChildren.length > 0 ? 'addColor': ''}">
+          ADD
+        </button>
       </div>
     </div>
   </div>

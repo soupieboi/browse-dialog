@@ -1,5 +1,5 @@
 $hovercolor: rgba(47, 141, 248, 0.99);
-$activeaddbutton:#3E4760;
+$activeaddbutton: #3e4760;
 
 * {
   padding: 0;
@@ -62,71 +62,62 @@ $activeaddbutton:#3E4760;
   }
 
   .product-list {
-    ul {
-      margin-top: 24px;
-      overflow-y: auto;
-      max-height: 440px;
-      li {
-        list-style: none;
-        background: white;
-        padding-top: 9.75px;
-        padding-bottom: 9.75px;
-        border-top: none;
-        border-radius: 5px;
-        padding-left: 20px;
-        border: 1px solid #e5e5e5;
-        overflow-x: hidden;
-        #onlypaddingright {
-          padding-right: 400px;
-          padding-top: 8px;
-          padding-bottom: 8px;
+    margin-top: 24px;
+    // overflow-y: auto;
+    // max-height: 440px;
+    list-style: none;
+
+    li {
+      border-radius: 5px;
+      border: 1px solid #e5e5e5;
+
+      ul {
+        margin-top: 0;
+
+        li {
+          margin-right: 24px;
+          margin-top: 5px;
+
+          .product-count {
+            border: 1px solid #e5e5e5;
+          }
+
+          display: flex;
+          justify-content: space-between;
+        }
+
+        &:hover {
+          background: #f5f5f5;
+          transition: 0.13s ease-in-out;
         }
       }
-      li:hover {
-        background: #f5f5f5;
-        transition: 0.13s ease-in-out;
-      }
-      li h5 {
-        color: #7B7B7B;
-        font-weight: 400;
-        font-size: 12px;
-      }
-    }
-    .childproduct-ul {
-      margin-top: 0;
-      overflow-y: hidden;
-      overflow-x: hidden;
-      .childproduct-li {
-        margin-right: 24px;
-        margin-top: 5px;
-      }
-    }
-    a {
-      text-decoration: none;
-      color: black;
-      padding: 10px;
-      padding-left: 0;
-    }
-    .childproduct-sku {
-      padding-left: 24px;
-      color: #7B7B7B;
-      font-weight: 400;
-      font-size: 12px;
-    }
-    .arrow {
-      margin-right: 16px;
-      margin-top: 4px;
-      transform: rotate(0deg);
-      float: right;
-    }
-    .productCount {
-      float: right;
-      margin-right: 12px;
-      border-radius: 4px;
-      max-width: 75px;
-      padding: 2px;
     }
   }
+
+  a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    padding-left: 0;
+  }
+
+  .arrow {
+    transform: rotate(0deg);
+
+    &.rotate {
+      transform: rotate(90deg);
+    }
+  }
+
+  .productCount {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 12px;
+    border-radius: 4px;
+    max-width: 75px;
+    padding: 2px;
+  }
+
   header {
     display: flex;
     align-items: center;
@@ -158,6 +149,10 @@ $activeaddbutton:#3E4760;
   border: 1px solid #c4c4c4;
   border-radius: 3px;
 
+  img {
+    cursor: pointer;
+  }
+
   input {
     text-decoration: none;
     border: none;
@@ -176,6 +171,7 @@ $activeaddbutton:#3E4760;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   button {
     padding: 12px 24px;
     font-weight: 400;
@@ -183,40 +179,88 @@ $activeaddbutton:#3E4760;
     color: #c4c4c4;
     border: 1px solid #c4c4c4;
     border-radius: 3px;
-  }
-  #product-is-selected {
-    color: #808285;
-    transition: 0.13s ease-in;
-  }
-  #active-add-button {
-    background: $activeaddbutton;
-    transition: 0.13s ease-in;
-  }
-  #canCancel {
-    background: rgb(255, 92, 92);
-    color: black;
-    transition: 0.13s ease-in;
+
+    &.active {
+      color: #808285;
+      transition: 0.13s ease-in;
+    }
+
+    &.addColor {
+      background: $activeaddbutton;
+      transition: 0.13s ease-in;
+    }
+
+    &.cancelColor {
+      background: rgb(255, 92, 92);
+      color: black;
+      transition: 0.13s ease-in;
+    }
   }
 }
 
-.selectPage{
-    margin-top: -350px;
-    overflow-y: auto;
-    max-height: 440px;
-    li {
-      list-style: none;
-      background: white;
-      padding-top: 9.75px;
-      padding-bottom: 9.75px;
-      border-top: none;
-      border-radius: 5px;
-      padding-left: 20px;
-      border: 1px solid #e5e5e5;
-      overflow-x: hidden;
-    }
+.selectPage {
+  margin-top: -350px;
+  overflow-y: auto;
+  max-height: 440px;
+  li {
+    list-style: none;
+    background: white;
+    padding-top: 9.75px;
+    padding-bottom: 9.75px;
+    border-top: none;
+    border-radius: 5px;
+    padding-left: 20px;
+    border: 1px solid #e5e5e5;
+    overflow-x: hidden;
+  }
 }
 
 .aurelia-hide {
   display: block !important;
   visibility: hidden;
+}
+
+.hideToast {
+  display: none;
+}
+
+.selectedToast {
+  float: right;
+  width: 358px;
+  height: 81px;
+  background: #daeebf;
+  box-shadow: -1px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px 0px 0px 10px;
+  color: rgba(62, 71, 96, 1);
+  font-family: 'Segoe UI';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  animation-name: selectedToast;
+  animation-duration: 0.7s;
+  animation-timing-function: ease-in;
+
+  h3 {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+  }
+
+  .greenBorder {
+    height: 81px;
+    width: 9px;
+    background: rgba(107, 183, 0, 1);
+    float: left;
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  @keyframes selectedToast {
+    0% {
+      opacity: 0%;
+    }
+    100% {
+      opacity: 100%;
+    }
+  }
 }
