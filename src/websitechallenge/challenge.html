@@ -7,10 +7,10 @@
   <button type="button">test me!</button>
 
   <div
-    class="${showToastNotification === true ? 'selectedToast' : 'hideToast'}"
+    class="${showToastNotification === false ? 'selectedToast' : 'hideToast'}"
   >
     <div class="greenBorder"></div>
-    <h3>${toastContainer}</h3>
+    ${toastContainer} something
     <div class="elipse"></div>
   </div>
 
@@ -40,7 +40,7 @@
         <img src="img/search.png" alt="search" />
         <input
           type="text"
-          placeholder="${supplierPage === false ? 'Search Products' : 'Search suppliers'}"
+          placeholder="${supplierPage === false ? 'Search Products' : 'Search Suppliers'}"
           value.bind="query & debounce:300"
         />
       </div>
@@ -67,7 +67,10 @@
       </div>
 
       <ul class="product-list">
-        <li repeat.for="product of products">
+        <li
+          repeat.for="product of products | filter:['name']:query"
+          show.bind="showProductList"
+        >
           <a
             href="#"
             class="products"
@@ -80,7 +83,9 @@
             />
           </a>
           <ul if.bind="selectedParentProduct === product.id">
-            <li repeat.for="childProduct of product.childProducts">
+            <li
+              repeat.for="childProduct of product.childProducts | filter:['name']:query"
+            >
               <label>
                 <input
                   type="checkbox"
@@ -104,7 +109,9 @@
       </ul>
 
       <ul class="selectPage" if.bind="showArray">
-        <li repeat.for="child of selectedChildren">${child}</li>
+        <li repeat.for="child of selectedChildren | filter:['name']:query">
+          ${child}
+        </li>
       </ul>
     </div>
 

@@ -31,16 +31,18 @@ $activeaddbutton: #3e4760;
 
 .modal-content {
   height: 570px;
+
   .items:hover {
     background: $hovercolor;
     transition: 0.13s ease;
   }
+
   .supplier-list {
     ul {
       margin-top: 24px;
+
       li {
         list-style: none;
-        background: white;
         width: 686px;
         padding-top: 9.75px;
         padding-bottom: 9.75px;
@@ -52,6 +54,7 @@ $activeaddbutton: #3e4760;
         overflow-x: hidden;
       }
     }
+
     a {
       text-decoration: none;
       color: black;
@@ -63,32 +66,47 @@ $activeaddbutton: #3e4760;
 
   .product-list {
     margin-top: 24px;
-    // overflow-y: auto;
-    // max-height: 440px;
     list-style: none;
 
     li {
-      border-radius: 5px;
       border: 1px solid #e5e5e5;
+      border-left: none;
+      border-right: none;
+      list-style: none;
+      border-top: none;
+      padding-left: 20px;
+
+      a {
+        text-decoration: none;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+      }
 
       ul {
-        margin-top: 0;
-
         li {
-          margin-right: 24px;
-          margin-top: 5px;
+          padding-left: 0px;
+          display: flex;
 
-          .product-count {
-            border: 1px solid #e5e5e5;
+          .productCount {
+            height: 28px;
+            width: 68px;
+            margin-left: auto;
+            margin-right: 25px;
+            border: 1px solid #c4c4c4;
+            border-radius: 3px;
+            padding-left: 5px;
+            margin-top: 10px;
           }
 
-          display: flex;
-          justify-content: space-between;
-        }
+          label {
+            padding: 10px;
+            padding-left: 0px;
 
-        &:hover {
-          background: #f5f5f5;
-          transition: 0.13s ease-in-out;
+            input {
+              margin-right: 15px;
+            }
+          }
         }
       }
     }
@@ -107,15 +125,6 @@ $activeaddbutton: #3e4760;
     &.rotate {
       transform: rotate(90deg);
     }
-  }
-
-  .productCount {
-    display: flex;
-    align-self: flex-end;
-    margin-right: 12px;
-    border-radius: 4px;
-    max-width: 75px;
-    padding: 2px;
   }
 
   header {
@@ -199,7 +208,7 @@ $activeaddbutton: #3e4760;
 }
 
 .selectPage {
-  margin-top: -350px;
+  margin-top: -630px;
   overflow-y: auto;
   max-height: 440px;
   li {
@@ -225,7 +234,6 @@ $activeaddbutton: #3e4760;
 }
 
 .selectedToast {
-  float: right;
   width: 358px;
   height: 81px;
   background: #daeebf;
@@ -237,15 +245,6 @@ $activeaddbutton: #3e4760;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  animation-name: selectedToast;
-  animation-duration: 0.7s;
-  animation-timing-function: ease-in;
-
-  h3 {
-    display: flex;
-    justify-content: space-around;
-    padding: 5px;
-  }
 
   .greenBorder {
     height: 81px;
@@ -253,14 +252,5 @@ $activeaddbutton: #3e4760;
     background: rgba(107, 183, 0, 1);
     float: left;
     border-radius: 10px 0px 0px 10px;
-  }
-
-  @keyframes selectedToast {
-    0% {
-      opacity: 0%;
-    }
-    100% {
-      opacity: 100%;
-    }
   }
 }

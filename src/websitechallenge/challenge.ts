@@ -27,8 +27,6 @@ export class Challenge {
   showArray: boolean = false;
   showProductChildren: boolean = false;
 
-  showToastNotification: boolean = false;
-
   constructor(
     private supplierService: SupplierService,
     private productService: ProductService
@@ -77,7 +75,6 @@ export class Challenge {
     if (!this.selectedChildren.includes(childproduct.name)) {
       this.selectedChildren.push(childproduct.name);
       this.toastContainer = 'Added ' + childproduct.name + ' successfully.';
-      this.showToastNotification = true;
     } else if (this.selectedChildren.includes(childproduct.name)) {
       let duplicateChildProduct = this.selectedChildren.indexOf(
         childproduct.name
@@ -88,7 +85,6 @@ export class Challenge {
       }
 
       this.toastContainer = 'Removed ' + childproduct.name + ' successfully.';
-      this.showToastNotification = false;
     }
 
     if (!this.childProductIds.includes(childId)) {
