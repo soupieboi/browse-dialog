@@ -64,19 +64,12 @@ export class Challenge {
   }
 
   selectParentProduct(productId: string) {
-    this.selectedParentProduct = productId;
-    this.isDropDownActive = !this.isDropDownActive;
-    let currentActiveDropdown = null;
-
-    if (this.isDropDownActive === false) {
+    if (this.selectedParentProduct === productId) {
       this.selectedParentProduct = null;
-      let currentActiveDropdown = productId;
-    } else if (
-      this.isDropDownActive === true &&
-      currentActiveDropdown === this.selectedParentProduct
-    ) {
-      this.selectParentProduct = null;
+      return;
     }
+
+    this.selectedParentProduct = productId;
   }
 
   showChildProducts(supplierId: string) {
@@ -145,8 +138,28 @@ export class FilterValueConverter {
     ) {
       return array;
     }
-
+    // split op punt
+    // loop door alle items in array en neem eerste property, 'childProducts'
+    // next loop, loop door items in second property heen
+    // done...
     const properties = Array.isArray(property) ? property : [property];
+
+    console.log(properties);
+    console.log(array);
+
+    let henk = array.filter(function (e) {
+      // console.log(index);
+      // return e['name'].sta === query;
+      for (const item of e['childProducts']) {
+        if (item.name.startsWith(query)) {
+          return true;
+        }
+      }
+      return false;
+    });
+
+    console.log(henk);
+
     const term = String(query).toLowerCase();
 
     let startsWithResults = array.filter((entry) =>

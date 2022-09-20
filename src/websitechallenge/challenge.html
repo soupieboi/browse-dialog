@@ -68,7 +68,7 @@
 
       <ul class="product-list">
         <li
-          repeat.for="product of products | filter:['name']:query"
+          repeat.for="product of products | filter:['childProducts.name']:query"
           show.bind="showProductList"
         >
           <a
