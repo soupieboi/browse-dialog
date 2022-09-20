@@ -26,6 +26,7 @@ export class Challenge {
   showProductList: boolean = false;
   showArray: boolean = false;
   showProductChildren: boolean = false;
+  isDropDownActive: boolean = true;
 
   constructor(
     private supplierService: SupplierService,
@@ -64,6 +65,18 @@ export class Challenge {
 
   selectParentProduct(productId: string) {
     this.selectedParentProduct = productId;
+    this.isDropDownActive = !this.isDropDownActive;
+    let currentActiveDropdown = null;
+
+    if (this.isDropDownActive === false) {
+      this.selectedParentProduct = null;
+      let currentActiveDropdown = productId;
+    } else if (
+      this.isDropDownActive === true &&
+      currentActiveDropdown === this.selectedParentProduct
+    ) {
+      this.selectParentProduct = null;
+    }
   }
 
   showChildProducts(supplierId: string) {

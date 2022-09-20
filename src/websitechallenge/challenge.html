@@ -82,10 +82,10 @@
               class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
             />
           </a>
-          <ul if.bind="selectedParentProduct === product.id">
-            <li
-              repeat.for="childProduct of product.childProducts | filter:['name']:query"
-            >
+          <ul
+            if.bind="selectedParentProduct === product.id && isDropDownActive === true"
+          >
+            <li repeat.for="childProduct of product.childProducts">
               <label>
                 <input
                   type="checkbox"
@@ -109,9 +109,7 @@
       </ul>
 
       <ul class="selectPage" if.bind="showArray">
-        <li repeat.for="child of selectedChildren | filter:['name']:query">
-          ${child}
-        </li>
+        <li repeat.for="child of selectedChildren">${child}</li>
       </ul>
     </div>
 
