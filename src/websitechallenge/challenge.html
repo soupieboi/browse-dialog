@@ -27,11 +27,7 @@
         </button>
         <h3 class="modalname">${title}</h3>
 
-        <button
-          type="button"
-          class="modalclose"
-          click.delegate="toggleModalVisible()"
-        >
+        <button type="button" class="modalclose" click.delegate="binding">
           <img src="img/x.png" alt="x" />
         </button>
       </header>
@@ -73,9 +69,7 @@
               class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
             />
           </a>
-          <ul
-            if.bind="selectedParentProduct === product.id && isDropDownActive === true"
-          >
+          <ul if.bind="selectedParentProduct === product.id">
             <li repeat.for="childProduct of product.childProducts">
               <label>
                 <input
@@ -105,7 +99,7 @@
           ${childProduct.name}
           <span>
             ${childProduct.quantity}
-            <img src="./img/Vector.png" if.bind="childProduct.quantity > 1" />
+            <img src="./img/Vector.png" />
           </span>
         </li>
       </ul>

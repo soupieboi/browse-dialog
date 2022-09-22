@@ -11,24 +11,17 @@ export class Challenge {
   suppliers: Supplier[];
   products: ParentProduct[];
   selectedChildren: SelectedChildProduct[] = [];
-  childProductIds: string[] = [];
-  supplierSearchFilter: string[] = [];
-  productCounters: string[] = [];
   @observable query: string;
 
   title: string = 'Browse';
   returnFromSelectionTitle: string;
   selectedParentProduct: string = null;
-  toastContainer: string;
 
   showModal: boolean = true;
   supplierPage: boolean = true;
   isContentShowing: boolean = true;
   showProductList: boolean = false;
   showArray: boolean = false;
-  showProductChildren: boolean = false;
-  isDropDownActive: boolean = true;
-  productCounter: number;
 
   constructor(
     private supplierService: SupplierService,
@@ -53,8 +46,11 @@ export class Challenge {
     await this.getProducts();
     this.showProductList = true;
     this.supplierPage = false;
-    this.showProductChildren = false;
-    this.showChildProducts(supplier.id);
+    this.productFilter(supplier.id);
+
+    let showChildPoducts = () => {
+      this.products = this.products.filter((c) => c.id === supplier.id);
+    };
     this.returnFromSelectionTitle = supplier.name;
   }
 
@@ -74,7 +70,7 @@ export class Challenge {
     this.selectedParentProduct = productId;
   }
 
-  showChildProducts(supplierId: string) {
+  productFilter(supplierId: string) {
     this.products = this.products.filter((c) => c.supplierId === supplierId);
   }
 
