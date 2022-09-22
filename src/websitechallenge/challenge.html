@@ -90,9 +90,9 @@
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct, childProduct.id, productAmount)"
-                  model.bind="childProduct.id"
-                  checked.bind="childProductIds"
+                  click.delegate="checkboxfunc(childProduct)"
+                  model.bind="childProduct"
+                  checked.bind="childProduct.isSelected"
                 />
                 ${childProduct.name}
               </label>
@@ -101,9 +101,8 @@
                 class="productCount"
                 min="0"
                 if.bind="childProduct.isSelected"
-                placeholder="..."
-                value.bind="productCounter"
-                change.delegate="updateProductCounter(productCounter, childProduct.name)"
+                placeholder=".."
+                value.bind="childProduct.quantity"
               />
             </li>
           </ul>
@@ -111,7 +110,10 @@
       </ul>
 
       <ul class="selectPage" if.bind="showArray">
-        <li repeat.for="child of selectedChildren">${child}</li>
+        <li repeat.for="childProduct of selectedChildren">
+          <span>${childProduct.name}</span>
+          <span>${childProduct.quantity}</span>
+        </li>
       </ul>
     </div>
 

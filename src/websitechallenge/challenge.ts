@@ -10,7 +10,7 @@ import {
 export class Challenge {
   suppliers: Supplier[];
   products: ParentProduct[];
-  selectedChildren: string[] = [];
+  selectedChildren: SelectedChildProduct[] = [];
   childProductIds: string[] = [];
   supplierSearchFilter: string[] = [];
   productCounters: string[] = [];
@@ -78,41 +78,24 @@ export class Challenge {
     this.products = this.products.filter((c) => c.supplierId === supplierId);
   }
 
-  checkboxfunc(childproduct: SelectedChildProduct, childId: string) {
+  checkboxfunc(childproduct: SelectedChildProduct) {
     childproduct.isSelected = !childproduct.isSelected;
-    if (!this.selectedChildren.includes(childproduct.name)) {
-      this.selectedChildren.push(childproduct.name);
-      this.toastContainer = 'Added ' + childproduct.name + ' successfully.';
-    } else if (this.selectedChildren.includes(childproduct.name)) {
-      let duplicateChildProduct = this.selectedChildren.indexOf(
-        childproduct.name
+
+    if (childproduct.isSelected) {
+      this.selectedChildren.push(childproduct);
+    } else {
+      let index = this.selectedChildren.findIndex(
+        (c) => c.id === childproduct.id
       );
-
-      if (duplicateChildProduct > -1) {
-        this.selectedChildren.splice(duplicateChildProduct, 1);
-      }
-
-      this.toastContainer = 'Removed ' + childproduct.name + ' successfully.';
+      this.selectedChildren.splice(index, 1);
     }
 
-    if (!this.childProductIds.includes(childId)) {
-      this.childProductIds.push(childId);
-    } else if (this.childProductIds.includes(childId)) {
-      let duplicateChildId = this.childProductIds.indexOf(childId);
-
-      if (duplicateChildId > -1) {
-        this.childProductIds.splice(duplicateChildId, 1);
-      }
-    }
-
-    // Checks the checkbox
     return true;
   }
 
   showChildren() {
     this.isContentShowing = false;
     this.showProductList = false;
-    this.title = 'selection';
     this.showArray = true;
   }
 
@@ -122,29 +105,6 @@ export class Challenge {
       this.showProductList = true;
       this.showArray = false;
       this.title = this.returnFromSelectionTitle;
-    }
-  }
-
-  updateProductCounter(currentProductCount: string, childProductName: string) {
-    console.log(currentProductCount);
-    console.log(childProductName);
-
-    let productInfo = { name: childProductName, count: currentProductCount };
-
-    if (!this.productCounters.includes(childProductName)) {
-      this.productCounters.push(productInfo.name);
-      this.productCounters.push(productInfo.count);
-      console.log(this.productCounters);
-    } else if (this.productCounters.includes(childProductName)) {
-      let getUpdatedCounterValue =
-        this.productCounters.indexOf(childProductName);
-      this.productCounters.splice(getUpdatedCounterValue, 1, productInfo.name);
-      this.productCounters.splice(
-        getUpdatedCounterValue + 1,
-        1,
-        productInfo.count
-      );
-      console.log(this.productCounters);
     }
   }
 }
