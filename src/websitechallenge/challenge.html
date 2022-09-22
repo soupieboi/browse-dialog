@@ -45,31 +45,22 @@
         />
       </div>
 
-      <div
-        class="supplier-list"
-        if.bind="!showProductList"
-        show.bind="isContentShowing"
-      >
-        <ul>
+      <div class="supplier-list" show.bind="isContentShowing">
+        <ul if.bind="supplierPage">
           <li
             class="items"
             repeat.for="supplier of suppliers | filter:['name']:query"
           >
-            <a
-              href="#"
-              click.delegate="selectSupplier(supplier)"
-              show.bind="supplierPage"
-            >
+            <a href="#" click.delegate="selectSupplier(supplier)">
               ${supplier.name}
             </a>
           </li>
         </ul>
       </div>
 
-      <ul class="product-list">
+      <ul class="product-list" if.bind="showProductList">
         <li
           repeat.for="product of products | filter:['childProducts.name']:query"
-          show.bind="showProductList"
         >
           <a
             href="#"
@@ -111,8 +102,11 @@
 
       <ul class="selectPage" if.bind="showArray">
         <li repeat.for="childProduct of selectedChildren">
-          <span>${childProduct.name}</span>
-          <span>${childProduct.quantity}</span>
+          ${childProduct.name}
+          <span>
+            ${childProduct.quantity}
+            <img src="./img/Vector.png" if.bind="childProduct.quantity > 1" />
+          </span>
         </li>
       </ul>
     </div>

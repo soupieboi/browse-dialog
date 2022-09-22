@@ -208,12 +208,12 @@ $activeaddbutton: #3e4760;
 }
 
 .selectPage {
-  margin-top: -630px;
   overflow-y: auto;
   max-height: 440px;
+  margin-top: 24px;
+
   li {
     display: flex;
-    list-style: none;
     background: white;
     padding-top: 9.75px;
     padding-bottom: 9.75px;
@@ -221,9 +221,17 @@ $activeaddbutton: #3e4760;
     border-radius: 5px;
     padding-left: 20px;
     border: 1px solid #e5e5e5;
-    overflow-x: hidden;
-    justify-content: space-between;
     padding-right: 16px;
+    justify-content: space-between;
+    align-items: baseline;
+
+    span {
+      justify-self: flex-end;
+
+      img {
+        padding-left: 15px;
+      }
+    }
   }
 }
 
