@@ -102,6 +102,8 @@
                 min="0"
                 if.bind="childProduct.isSelected"
                 placeholder="..."
+                value.bind="productCounter"
+                change.delegate="updateProductCounter(productCounter, childProduct.name)"
               />
             </li>
           </ul>

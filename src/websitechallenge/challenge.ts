@@ -13,6 +13,7 @@ export class Challenge {
   selectedChildren: string[] = [];
   childProductIds: string[] = [];
   supplierSearchFilter: string[] = [];
+  productCounters: string[] = [];
   @observable query: string;
 
   title: string = 'Browse';
@@ -27,6 +28,7 @@ export class Challenge {
   showArray: boolean = false;
   showProductChildren: boolean = false;
   isDropDownActive: boolean = true;
+  productCounter: number;
 
   constructor(
     private supplierService: SupplierService,
@@ -123,8 +125,27 @@ export class Challenge {
     }
   }
 
-  getProductAmount(productAmount: number) {
-    console.log(productAmount);
+  updateProductCounter(currentProductCount: string, childProductName: string) {
+    console.log(currentProductCount);
+    console.log(childProductName);
+
+    let productInfo = { name: childProductName, count: currentProductCount };
+
+    if (!this.productCounters.includes(childProductName)) {
+      this.productCounters.push(productInfo.name);
+      this.productCounters.push(productInfo.count);
+      console.log(this.productCounters);
+    } else if (this.productCounters.includes(childProductName)) {
+      let getUpdatedCounterValue =
+        this.productCounters.indexOf(childProductName);
+      this.productCounters.splice(getUpdatedCounterValue, 1, productInfo.name);
+      this.productCounters.splice(
+        getUpdatedCounterValue + 1,
+        1,
+        productInfo.count
+      );
+      console.log(this.productCounters);
+    }
   }
 }
 
@@ -138,27 +159,27 @@ export class FilterValueConverter {
     ) {
       return array;
     }
-    // split op punt
-    // loop door alle items in array en neem eerste property, 'childProducts'
-    // next loop, loop door items in second property heen
-    // done...
+    // // split op punt
+    // // loop door alle items in array en neem eerste property, 'childProducts'
+    // // next loop, loop door items in second property heen
+    // // done...
     const properties = Array.isArray(property) ? property : [property];
 
-    console.log(properties);
-    console.log(array);
+    // console.log(properties);
+    // console.log(array);
 
-    let henk = array.filter(function (e) {
-      // console.log(index);
-      // return e['name'].sta === query;
-      for (const item of e['childProducts']) {
-        if (item.name.startsWith(query)) {
-          return true;
-        }
-      }
-      return false;
-    });
+    // let henk = array.filter(function (e) {
+    //   // console.log(index);
+    //   // return e['name'].sta === query;
+    //   for (const item of e['childProducts']) {
+    //     if (item.name.startsWith(query)) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // });
 
-    console.log(henk);
+    // console.log(henk);
 
     const term = String(query).toLowerCase();
 
