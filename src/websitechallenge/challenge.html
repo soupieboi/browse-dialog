@@ -17,7 +17,7 @@
         >
           <img src="img/arrow-left.png" alt="backarrow" />
         </button>
-        <h3 class="modalname">${title}</h3>
+        <h3 class="modalname">${showSelected ? 'Selection':title}</h3>
         <button
           type="button"
           class="modalclose"
@@ -97,7 +97,10 @@
           ${childProduct.name}
           <span>
             ${childProduct.quantity}
-            <button click.delegate="checkboxfunc(childProduct)">
+            <button
+              click.delegate="checkboxfunc(childProduct)"
+              if.bind="selectedChildren.length > 1"
+            >
               <img src="./img/Vector.png" />
             </button>
           </span>
@@ -109,7 +112,7 @@
       <button
         type="submit"
         class="${selectedChildren.length > 0 ? 'active': ''}"
-        click.trigger="showChildren()"
+        click.trigger="showSelected = true"
         disabled.bind="selectedChildren.length === 0"
       >
         ${selectedChildren.length}
@@ -119,8 +122,8 @@
       <div class="bottom-buttons">
         <button
           class="${showSelected === true && selectedChildren.length >= 0 ? 'cancelColor': ''}"
-          click.trigger="cancelSelection()"
-          disabled.bind="isArrayDisplayed === false"
+          click.trigger="showSelected = false"
+          disabled.bind="!showSelected"
         >
           CANCEL
         </button>

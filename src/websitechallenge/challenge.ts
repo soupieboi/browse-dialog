@@ -18,7 +18,6 @@ export class Challenge {
   selectedParentProduct: string = null;
 
   showModal: boolean = true;
-  isContentShowing: boolean = true;
   showSelected: boolean = false;
 
   constructor(
@@ -85,18 +84,6 @@ export class Challenge {
 
     return true;
   }
-
-  showChildren() {
-    this.showSelected = true;
-    this.title = 'Selection';
-  }
-
-  cancelSelection() {
-    if ((this.showSelected = true)) {
-      this.showSelected = false;
-      this.title = this.selectedSupplier;
-    }
-  }
 }
 
 export class FilterValueConverter {
@@ -109,28 +96,8 @@ export class FilterValueConverter {
     ) {
       return array;
     }
-    // // split op punt
-    // // loop door alle items in array en neem eerste property, 'childProducts'
-    // // next loop, loop door items in second property heen
-    // // done...
+
     const properties = Array.isArray(property) ? property : [property];
-
-    // console.log(properties);
-    // console.log(array);
-
-    // let henk = array.filter(function (e) {
-    //   // console.log(index);
-    //   // return e['name'].sta === query;
-    //   for (const item of e['childProducts']) {
-    //     if (item.name.startsWith(query)) {
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // });
-
-    // console.log(henk);
-
     const term = String(query).toLowerCase();
 
     let startsWithResults = array.filter((entry) =>
