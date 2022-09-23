@@ -14,14 +14,12 @@ export class Challenge {
   @observable query: string;
 
   title: string = 'Browse';
-  selectedSupplier: string;
+  selectedSupplier: string = null;
   selectedParentProduct: string = null;
 
   showModal: boolean = true;
-  supplierPage: boolean = true;
   isContentShowing: boolean = true;
-  showProductList: boolean = false;
-  showArray: boolean = false;
+  showSelected: boolean = false;
 
   constructor(
     private supplierService: SupplierService,
@@ -44,17 +42,14 @@ export class Challenge {
   async selectSupplier(supplier: Supplier) {
     await this.getProducts();
     this.title = supplier.name;
-    this.showProductList = true;
-    this.supplierPage = false;
     this.productFilter(supplier.id);
     this.selectedSupplier = supplier.name;
   }
 
   backButton() {
     this.title = 'Browse';
-    this.showProductList = false;
-    this.supplierPage = true;
     this.selectedParentProduct = null;
+    this.selectedSupplier = null;
   }
 
   selectParentProduct(productId: string) {
@@ -92,17 +87,13 @@ export class Challenge {
   }
 
   showChildren() {
-    this.isContentShowing = false;
-    this.showProductList = false;
-    this.showArray = true;
+    this.showSelected = true;
     this.title = 'Selection';
   }
 
   cancelSelection() {
-    if ((this.showArray = true)) {
-      this.isContentShowing = true;
-      this.showProductList = true;
-      this.showArray = false;
+    if ((this.showSelected = true)) {
+      this.showSelected = false;
       this.title = this.selectedSupplier;
     }
   }
