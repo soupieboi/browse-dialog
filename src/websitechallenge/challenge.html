@@ -1,6 +1,8 @@
 <template>
-  <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
+
+  <h1 class="name">Modal Challenge</h1>
+
   <button type="button" click.delegate="toggleModalVisible()">
     Open Modal
   </button>
@@ -17,7 +19,9 @@
         >
           <img src="img/arrow-left.png" alt="backarrow" />
         </button>
+
         <h3 class="modalname">${showSelected ? 'Selection':title}</h3>
+
         <button
           type="button"
           class="modalclose"
@@ -27,7 +31,7 @@
         </button>
       </header>
 
-      <div class="modalsearchbox">
+      <div class="modal-search">
         <img src="img/search.png" alt="search" />
         <input
           type="text"
@@ -80,12 +84,14 @@
                 ${childProduct.name}
               </label>
               <input
+                required()
                 type="number"
                 class="productCount"
                 min="1"
+                step="1"
                 if.bind="childProduct.isSelected"
                 placeholder="-"
-                value.bind="childProduct.quantity"
+                value.bind="childProduct.quantity & debounce:300 & validate"
               />
             </li>
           </ul>
@@ -125,10 +131,10 @@
           click.trigger="showSelected = false"
           disabled.bind="!showSelected"
         >
-          CANCEL
+          CANCEL // Do met CSS
         </button>
         <button class="${selectedChildren.length > 0 ? 'addColor': ''}">
-          ADD
+          ADD // Do met CSS
         </button>
       </div>
     </div>

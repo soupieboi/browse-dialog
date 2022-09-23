@@ -1,10 +1,10 @@
 import { autoinject, observable } from 'aurelia-framework';
-import { SupplierService, Supplier } from './supplier.service';
 import {
-  ProductService,
   ParentProduct,
+  ProductService,
   SelectedChildProduct,
 } from './product.service';
+import { Supplier, SupplierService } from './supplier.service';
 
 @autoinject
 export class Challenge {
@@ -18,7 +18,7 @@ export class Challenge {
   selectedParentProduct: string = null;
 
   showModal: boolean = true;
-  showSelected: boolean = false;
+  showSelected: boolean;
 
   constructor(
     private supplierService: SupplierService,
@@ -29,13 +29,14 @@ export class Challenge {
     this.suppliers = await this.supplierService.get();
   }
 
-  private async getProducts() {
-    let paginatedItem = await this.productService.get();
-    this.products = paginatedItem.data;
-  }
-
   toggleModalVisible() {
     this.showModal = !this.showModal;
+  }
+
+  backButton() {
+    this.title = 'Browse';
+    this.selectedParentProduct = null;
+    this.selectedSupplier = null;
   }
 
   async selectSupplier(supplier: Supplier) {
@@ -45,10 +46,8 @@ export class Challenge {
     this.selectedSupplier = supplier.name;
   }
 
-  backButton() {
-    this.title = 'Browse';
-    this.selectedParentProduct = null;
-    this.selectedSupplier = null;
+  productFilter(supplierId: string) {
+    this.products = this.products.filter((c) => c.supplierId === supplierId);
   }
 
   selectParentProduct(productId: string) {
@@ -60,13 +59,10 @@ export class Challenge {
     this.selectedParentProduct = productId;
   }
 
-  productFilter(supplierId: string) {
-    this.products = this.products.filter((c) => c.supplierId === supplierId);
-  }
-
   checkboxfunc(childproduct: SelectedChildProduct) {
     childproduct.isSelected = !childproduct.isSelected;
 
+    // add - remove from Array
     if (childproduct.isSelected) {
       this.selectedChildren.push(childproduct);
     } else {
@@ -76,13 +72,14 @@ export class Challenge {
       this.selectedChildren.splice(index, 1);
     }
 
-    if (childproduct.quantity === undefined) {
-      childproduct.quantity = 1;
-    }
-
-    console.log(childproduct.quantity);
+    childproduct.quantity = 1;
 
     return true;
+  }
+
+  private async getProducts() {
+    let paginatedItem = await this.productService.get();
+    this.products = paginatedItem.data;
   }
 }
 
