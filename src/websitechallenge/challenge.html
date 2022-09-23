@@ -6,14 +6,6 @@
   </button>
   <button type="button">test me!</button>
 
-  <div
-    class="${showToastNotification === false ? 'selectedToast' : 'hideToast'}"
-  >
-    <div class="greenBorder"></div>
-    ${toastContainer} something
-    <div class="elipse"></div>
-  </div>
-
   <div class="modal-body" show.bind="showModal">
     <div class="modal-content">
       <header>
@@ -84,9 +76,9 @@
               <input
                 type="number"
                 class="productCount"
-                min="0"
+                min="1"
                 if.bind="childProduct.isSelected"
-                placeholder=".."
+                placeholder="-"
                 value.bind="childProduct.quantity"
               />
             </li>

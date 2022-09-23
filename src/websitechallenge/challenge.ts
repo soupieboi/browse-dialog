@@ -47,7 +47,6 @@ export class Challenge {
     this.showProductList = true;
     this.supplierPage = false;
     this.productFilter(supplier.id);
-
     let showChildPoducts = () => {
       this.products = this.products.filter((c) => c.id === supplier.id);
     };
@@ -85,6 +84,12 @@ export class Challenge {
       );
       this.selectedChildren.splice(index, 1);
     }
+
+    if (childproduct.quantity === undefined) {
+      childproduct.quantity = 1;
+    }
+
+    console.log(childproduct.quantity);
 
     return true;
   }
