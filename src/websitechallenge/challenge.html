@@ -1,7 +1,7 @@
 <template>
   <require from="./challenge.scss"></require>
 
-  <h1 class="name">Modal Challenge</h1>
+  <h1>Modal Challenge</h1>
 
   <button type="button" click.delegate="toggleModalVisible()">
     Open Modal
@@ -20,7 +20,7 @@
           <img src="img/arrow-left.png" alt="backarrow" />
         </button>
 
-        <h3 class="modalname">${showSelected ? 'Selection':title}</h3>
+        <h3>${showSelected ? 'Selection':title}</h3>
 
         <button
           type="button"
@@ -59,12 +59,9 @@
       >
         <li
           repeat.for="product of products | filter:['childProducts.name']:query"
+          class="${selectedParentProduct === product.id ? 'no-bottom-border':''}"
         >
-          <a
-            href="#"
-            class="products"
-            click.delegate="selectParentProduct(product.id)"
-          >
+          <a href="#" click.delegate="selectParentProduct(product.id)">
             ${product.name}
             <img
               src="./img/chevron-right.png"
@@ -91,14 +88,14 @@
                 step="1"
                 if.bind="childProduct.isSelected"
                 placeholder="-"
-                value.bind="childProduct.quantity & debounce:300 & validate"
+                value.bind="childProduct.quantity & validateOnChange"
               />
             </li>
           </ul>
         </li>
       </ul>
 
-      <ul class="selectPage" if.bind="showSelected">
+      <ul class="select-page" if.bind="showSelected">
         <li repeat.for="childProduct of selectedChildren">
           ${childProduct.name}
           <span>
@@ -127,14 +124,14 @@
       </button>
       <div class="bottom-buttons">
         <button
-          class="${showSelected === true && selectedChildren.length >= 0 ? 'cancelColor': ''}"
+          class="${showSelected === true && selectedChildren.length >= 0 ? 'cancel-color': ''}"
           click.trigger="showSelected = false"
           disabled.bind="!showSelected"
         >
-          CANCEL // Do met CSS
+          CANCEL
         </button>
-        <button class="${selectedChildren.length > 0 ? 'addColor': ''}">
-          ADD // Do met CSS
+        <button class="${selectedChildren.length > 0 ? 'add-color': ''}">
+          ADD
         </button>
       </div>
     </div>

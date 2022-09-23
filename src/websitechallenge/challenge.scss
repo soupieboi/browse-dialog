@@ -1,5 +1,6 @@
-$hovercolor: rgba(47, 141, 248, 0.99);
-$activeaddbutton: #3e4760;
+$hover-color: rgba(47, 141, 248, 0.99);
+$coloured-add-button: #3e4760;
+$keyboard-hover-color: #e3f1fe;
 
 * {
   padding: 0;
@@ -24,7 +25,7 @@ $activeaddbutton: #3e4760;
   }
 
   .nohoverproductlist:hover {
-    background: $hovercolor;
+    background: $hover-color;
     transition: 0.13s ease-in-out;
   }
 }
@@ -32,26 +33,29 @@ $activeaddbutton: #3e4760;
 .modal-content {
   height: 570px;
 
-  .items:hover {
-    background: $hovercolor;
-    transition: 0.13s ease;
-  }
-
   .supplier-list {
     ul {
       margin-top: 24px;
 
+      .items:hover {
+        background: $hover-color;
+        transition: 0.4s ease;
+        border-radius: 0px;
+      }
+
       li {
         list-style: none;
         width: 686px;
+        height: 40px;
         padding-top: 9.75px;
         padding-bottom: 9.75px;
-        border-top: none;
+        border-bottom: 1px solid #e5e5e5;
         border-radius: 5px;
         padding-left: 20px;
-        border: 1px solid #e5e5e5;
-        overflow-y: auto;
-        overflow-x: hidden;
+        color: #3e4760;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
       }
     }
 
@@ -69,12 +73,13 @@ $activeaddbutton: #3e4760;
     list-style: none;
 
     li {
-      border: 1px solid #e5e5e5;
-      border-left: none;
-      border-right: none;
+      border-bottom: 1px solid #e5e5e5;
       list-style: none;
-      border-top: none;
       padding-left: 20px;
+
+      &.no-bottom-border {
+        border-bottom: none;
+      }
 
       a {
         text-decoration: none;
@@ -120,6 +125,7 @@ $activeaddbutton: #3e4760;
   }
 
   .arrow {
+    height: 18px;
     transform: rotate(0deg);
 
     &.rotate {
@@ -135,7 +141,9 @@ $activeaddbutton: #3e4760;
     h3 {
       background: white;
       font-size: 20px;
+      color: #7b7b7b;
       line-height: 28px;
+      font-weight: 400;
     }
 
     button {
@@ -180,6 +188,11 @@ $activeaddbutton: #3e4760;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  align-items: center;
 
   button {
     padding: 12px 24px;
@@ -194,20 +207,21 @@ $activeaddbutton: #3e4760;
       transition: 0.13s ease-in;
     }
 
-    &.addColor {
-      background: $activeaddbutton;
+    &.add-color {
+      background: $coloured-add-button;
       transition: 0.13s ease-in;
+      color: white;
     }
 
-    &.cancelColor {
+    &.cancel-color {
       background: rgb(255, 92, 92);
-      color: black;
+      color: #808285;
       transition: 0.13s ease-in;
     }
   }
 }
 
-.selectPage {
+.select-page {
   overflow-y: auto;
   max-height: 440px;
   margin-top: 24px;

@@ -4,6 +4,10 @@ import {
   ProductService,
   SelectedChildProduct,
 } from './product.service';
+import {
+  ValidationControllerFactory,
+  ValidationRules,
+} from 'aurelia-validation';
 import { Supplier, SupplierService } from './supplier.service';
 
 @autoinject
@@ -22,8 +26,11 @@ export class Challenge {
 
   constructor(
     private supplierService: SupplierService,
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    private validationControllerFactory: ValidationControllerFactory
+  ) {
+    let controller = validationControllerFactory.createForCurrentScope();
+  }
 
   async bind() {
     this.suppliers = await this.supplierService.get();
