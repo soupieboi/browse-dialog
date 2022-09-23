@@ -14,7 +14,7 @@ export class Challenge {
   @observable query: string;
 
   title: string = 'Browse';
-  returnFromSelectionTitle: string;
+  selectedSupplier: string;
   selectedParentProduct: string = null;
 
   showModal: boolean = true;
@@ -47,7 +47,7 @@ export class Challenge {
     this.showProductList = true;
     this.supplierPage = false;
     this.productFilter(supplier.id);
-    this.returnFromSelectionTitle = supplier.name;
+    this.selectedSupplier = supplier.name;
   }
 
   backButton() {
@@ -103,7 +103,7 @@ export class Challenge {
       this.isContentShowing = true;
       this.showProductList = true;
       this.showArray = false;
-      this.title = this.returnFromSelectionTitle;
+      this.title = this.selectedSupplier;
     }
   }
 }

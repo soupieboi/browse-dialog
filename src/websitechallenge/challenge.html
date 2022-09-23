@@ -12,7 +12,7 @@
         <button
           type="button"
           class="modalback"
-          show.bind="showProductList"
+          show.bind="selectedSupplier && selectedChildren.length < 1"
           click.delegate="backButton()"
         >
           <img src="img/arrow-left.png" alt="backarrow" />
@@ -90,7 +90,9 @@
           ${childProduct.name}
           <span>
             ${childProduct.quantity}
-            <img src="./img/Vector.png" />
+            <button click.delegate="checkboxfunc(childProduct)">
+              <img src="./img/Vector.png" />
+            </button>
           </span>
         </li>
       </ul>
@@ -109,7 +111,7 @@
       </button>
       <div class="bottom-buttons">
         <button
-          class="${showArray === true && selectedChildren.length > 0 ? 'cancelColor': ''}"
+          class="${showArray === true && selectedChildren.length >= 0 ? 'cancelColor': ''}"
           click.trigger="cancelSelection()"
           disabled.bind="isArrayDisplayed === false"
         >

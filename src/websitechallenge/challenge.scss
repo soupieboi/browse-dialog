@@ -228,8 +228,13 @@ $activeaddbutton: #3e4760;
     span {
       justify-self: flex-end;
 
-      img {
-        padding-left: 15px;
+      button {
+        border: none;
+        background: white;
+
+        img {
+          padding-left: 15px;
+        }
       }
     }
   }
