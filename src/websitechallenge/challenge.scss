@@ -60,8 +60,6 @@ $keyboard-hover-color: #e3f1fe;
     }
 
     a {
-      text-decoration: none;
-      color: black;
       padding-right: 900px;
       padding-top: 8px;
       padding-bottom: 8px;
@@ -77,8 +75,23 @@ $keyboard-hover-color: #e3f1fe;
       list-style: none;
       padding-left: 20px;
 
+      h2 {
+        color: #7b7b7b;
+        font-family: 'Segoe UI';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        flex-wrap: wrap;
+      }
+
+      label {
+        padding-bottom: 0px;
+      }
+
       &.no-bottom-border {
         border-bottom: none;
+        background: #f5f5f5;
       }
 
       a {
@@ -92,6 +105,10 @@ $keyboard-hover-color: #e3f1fe;
         li {
           padding-left: 0px;
           display: flex;
+          font-family: 'Segoe UI';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
 
           .productCount {
             height: 28px;
@@ -102,17 +119,25 @@ $keyboard-hover-color: #e3f1fe;
             border-radius: 3px;
             padding-left: 5px;
             margin-top: 10px;
+            flex-direction: row;
+            justify-content: flex-end;
           }
 
           label {
             padding: 10px;
             padding-left: 0px;
+            accent-color: $hover-color;
 
             input {
               margin-right: 15px;
             }
           }
         }
+      }
+
+      a {
+        padding-bottom: 4px;
+        padding-top: 4px;
       }
     }
   }

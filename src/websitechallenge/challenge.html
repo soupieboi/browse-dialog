@@ -61,13 +61,17 @@
           repeat.for="product of products | filter:['childProducts.name']:query"
           class="${selectedParentProduct === product.id ? 'no-bottom-border':''}"
         >
-          <a href="#" click.delegate="selectParentProduct(product.id)">
-            ${product.name}
-            <img
-              src="./img/chevron-right.png"
-              class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
-            />
+          <label>
+            <a href="#" click.delegate="selectParentProduct(product.id)">
+              ${product.name}
+              <img
+                src="./img/chevron-right.png"
+                class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
+              />
+          </label>
+            <h2>sku: ${product.id}</h2>
           </a>
+
           <ul if.bind="selectedParentProduct === product.id">
             <li repeat.for="childProduct of product.childProducts">
               <label>
@@ -92,6 +96,7 @@
               />
             </li>
           </ul>
+
         </li>
       </ul>
 
