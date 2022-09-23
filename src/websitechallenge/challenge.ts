@@ -42,14 +42,11 @@ export class Challenge {
   }
 
   async selectSupplier(supplier: Supplier) {
-    this.title = supplier.name;
     await this.getProducts();
+    this.title = supplier.name;
     this.showProductList = true;
     this.supplierPage = false;
     this.productFilter(supplier.id);
-    let showChildPoducts = () => {
-      this.products = this.products.filter((c) => c.id === supplier.id);
-    };
     this.returnFromSelectionTitle = supplier.name;
   }
 
@@ -98,6 +95,7 @@ export class Challenge {
     this.isContentShowing = false;
     this.showProductList = false;
     this.showArray = true;
+    this.title = 'Selection';
   }
 
   cancelSelection() {
