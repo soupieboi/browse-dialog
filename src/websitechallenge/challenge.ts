@@ -79,6 +79,10 @@ export class Challenge {
       this.selectedChildren.splice(index, 1);
     }
 
+    if (this.selectedChildren.length < 1) {
+      this.showSelected = false;
+    }
+
     childproduct.quantity = 1;
 
     return true;

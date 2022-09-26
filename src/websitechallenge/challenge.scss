@@ -13,7 +13,6 @@ $keyboard-hover-color: #e3f1fe;
   width: 751px;
   height: 661px;
   margin: 0 auto;
-  border-radius: 10px;
   padding: 20px 32px;
   border: 1px solid #c4c4c4;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
@@ -265,12 +264,20 @@ $keyboard-hover-color: #e3f1fe;
     span {
       justify-self: flex-end;
 
+      input {
+        width: 68px;
+        padding: 3px 9px 3px;
+        border: 1px solid #c4c4c4;
+        border-radius: 3px;
+      }
+
       button {
         border: none;
         background: white;
 
         img {
           padding-left: 15px;
+          cursor: pointer;
         }
       }
     }

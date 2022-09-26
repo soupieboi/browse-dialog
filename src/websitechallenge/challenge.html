@@ -104,10 +104,9 @@
         <li repeat.for="childProduct of selectedChildren">
           ${childProduct.name}
           <span>
-            ${childProduct.quantity}
+            <input value.bind="childProduct.quantity">
             <button
-              click.delegate="checkboxfunc(childProduct)"
-              if.bind="selectedChildren.length > 1"
+              click.trigger="checkboxfunc(childProduct)"
             >
               <img src="./img/Vector.png" hover.bind="show-delete"/>
             </button>
