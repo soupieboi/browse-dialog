@@ -100,7 +100,7 @@
         </li>
       </ul>
 
-      <ul class="select-page" if.bind="showSelected">
+      <ol class="select-page" if.bind="showSelected">
         <li repeat.for="childProduct of selectedChildren">
           ${childProduct.name}
           <span>
@@ -109,11 +109,11 @@
               click.delegate="checkboxfunc(childProduct)"
               if.bind="selectedChildren.length > 1"
             >
-              <img src="./img/Vector.png" />
+              <img src="./img/Vector.png" hover.bind="show-delete"/>
             </button>
           </span>
         </li>
-      </ul>
+      </ol>
     </div>
 
     <div class="button-wrapper">
