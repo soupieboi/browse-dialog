@@ -227,18 +227,21 @@ $keyboard-hover-color: #e3f1fe;
     &.active {
       color: #808285;
       transition: 0.13s ease-in;
+      cursor: pointer;
     }
 
     &.add-color {
       background: $coloured-add-button;
       transition: 0.13s ease-in;
       color: white;
+      cursor: pointer;
     }
 
     &.cancel-color {
       background: rgb(255, 92, 92);
       color: #808285;
       transition: 0.13s ease-in;
+      cursor: pointer;
     }
   }
 }
@@ -284,29 +287,41 @@ $keyboard-hover-color: #e3f1fe;
   }
 }
 
+.toast-container {
+  position: fixed;
+  bottom: 10px;
+  right: 30px;
+  display: flex;
+  background: #daeebf;
+  min-width: 350px;
+  box-shadow: -1px 2px 4px rgba(0, 0, 0, 0.25);
+  min-height: 100px;
+  border-radius: 10px 0 0 10px;
+
+  &::before {
+    content: '';
+    width: 10px;
+    border-radius: 10px 0 0 10px;
+    background: #6bb700;
+    min-height: inherit;
+  }
+
+  // .toast-body {
+  //   border-radius: 10px 0px 0px 10px;
+  //   justify-content: center;
+
+  //   .toast-text {
+  //     justify-content: center;
+  //   }
+
+  //   img {
+  //     height: 18px;
+  //     width: 18px;
+  //   }
+  // }
+}
+
 .aurelia-hide {
   display: block !important;
   visibility: hidden;
 }
-
-// .selectedToast {
-//   width: 358px;
-//   height: 81px;
-//   background: #daeebf;
-//   box-shadow: -1px 2px 4px rgba(0, 0, 0, 0.25);
-//   border-radius: 10px 0px 0px 10px;
-//   color: rgba(62, 71, 96, 1);
-//   font-family: 'Segoe UI';
-//   font-style: normal;
-//   font-weight: 400;
-//   font-size: 14px;
-//   line-height: 20px;
-
-//   .greenBorder {
-//     height: 81px;
-//     width: 9px;
-//     background: rgba(107, 183, 0, 1);
-//     float: left;
-//     border-radius: 10px 0px 0px 10px;
-//   }
-// }

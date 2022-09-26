@@ -69,7 +69,6 @@ export class Challenge {
   checkboxfunc(childproduct: SelectedChildProduct) {
     childproduct.isSelected = !childproduct.isSelected;
 
-    // add - remove from Array
     if (childproduct.isSelected) {
       this.selectedChildren.push(childproduct);
     } else {

@@ -61,14 +61,14 @@
           repeat.for="product of products | filter:['childProducts.name']:query"
           class="${selectedParentProduct === product.id ? 'no-bottom-border':''}"
         >
-          <label>
-            <a href="#" click.delegate="selectParentProduct(product.id)">
-              ${product.name}
-              <img
-                src="./img/chevron-right.png"
-                class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
-              />
-          </label>
+        <div class="top-line">
+          <a href="#" click.delegate="selectParentProduct(product.id)">
+            ${product.name}
+            <img
+              src="./img/chevron-right.png"
+              class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
+            />
+          </div>
             <h2>sku: ${product.id}</h2>
           </a>
 
@@ -96,7 +96,6 @@
               />
             </li>
           </ul>
-
         </li>
       </ul>
 
@@ -104,11 +103,9 @@
         <li repeat.for="childProduct of selectedChildren">
           ${childProduct.name}
           <span>
-            <input value.bind="childProduct.quantity">
-            <button
-              click.trigger="checkboxfunc(childProduct)"
-            >
-              <img src="./img/Vector.png" hover.bind="show-delete"/>
+            <input value.bind="childProduct.quantity" />
+            <button click.trigger="checkboxfunc(childProduct)">
+              <img src="./img/Vector.png" hover.bind="show-delete" />
             </button>
           </span>
         </li>
@@ -139,5 +136,10 @@
         </button>
       </div>
     </div>
+  </div>
+  <div class="toast-container">
+    <img src="./img/x.png" />
+    <div class="toast-text">Delete SKU: PIT3S-T-RL/508 successfully.</div>
+    <img src="./img/x.png" />
   </div>
 </template>
