@@ -20,6 +20,7 @@ export class Challenge {
   title: string = 'Browse';
   selectedSupplier: string = null;
   selectedParentProduct: string = null;
+  setToastText: boolean;
 
   showModal: boolean = true;
   showSelected: boolean;
