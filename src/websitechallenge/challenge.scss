@@ -250,6 +250,7 @@ $keyboard-hover-color: #e3f1fe;
   overflow-y: auto;
   max-height: 440px;
   margin-top: 24px;
+  color: #3e4760;
 
   li {
     display: flex;
@@ -264,7 +265,27 @@ $keyboard-hover-color: #e3f1fe;
     justify-content: space-between;
     align-items: baseline;
 
+    .text-column {
+      flex-direction: column;
+      .child-name {
+        font-weight: 700;
+        font-size: 12px;
+      }
+
+      .child-id {
+        font-weight: 400;
+        font-size: 14px;
+      }
+
+      .child-sku {
+        font-weight: 400;
+        font-size: 12px;
+        color: #7b7b7b;
+      }
+    }
+
     span {
+      display: flex;
       justify-self: flex-end;
 
       input {

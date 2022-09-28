@@ -101,7 +101,11 @@
 
       <ol class="select-page" if.bind="showSelected">
         <li repeat.for="childProduct of selectedChildren">
-          ${childProduct.name}
+          <div class="text-column">
+          <div class="child-name"> ${childProduct.name}</div>
+            <div class="child-id">${childProduct.id}</div>
+            <div class="child-sku">${childProduct.sku}</div>
+          </div>
           <span>
             <input value.bind="childProduct.quantity" />
             <button click.trigger="onCheckBoxClick(childProduct)">
@@ -138,7 +142,7 @@
     </div>
   </div>
   <div class="toast-container ${setToastText === null ? 'toast-toggle' : ''}">
-    <img src="./img/x.png" />
+    <img src="./img/Ellipse 24 (1).png" />
     <div class="toast-text">${setToastText}</div>
     <img src="./img/x.png" />
   </div>

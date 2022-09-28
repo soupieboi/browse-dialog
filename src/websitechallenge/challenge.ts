@@ -10,6 +10,7 @@ import {
 } from 'aurelia-validation';
 import { Supplier, SupplierService } from './supplier.service';
 import { NormalModuleReplacementPlugin } from 'webpack';
+import { exec } from 'child_process';
 
 @autoinject
 export class Challenge {
