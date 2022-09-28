@@ -68,7 +68,7 @@
               src="./img/chevron-right.png"
               class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
             />
-          </div>
+        </div>
             <h2>sku: ${product.id}</h2>
           </a>
 
@@ -78,7 +78,7 @@
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct)"
+                  click.delegate="onCheckBoxClick(childProduct)"
                   model.bind="childProduct"
                   checked.bind="childProduct.isSelected"
                 />
@@ -104,8 +104,8 @@
           ${childProduct.name}
           <span>
             <input value.bind="childProduct.quantity" />
-            <button click.trigger="checkboxfunc(childProduct)">
-              <img src="./img/Vector.png" hover.bind="show-delete" />
+            <button click.trigger="onCheckBoxClick(childProduct)">
+              <img src="./img/Vector.png"/>
             </button>
           </span>
         </li>
@@ -137,9 +137,9 @@
       </div>
     </div>
   </div>
-  <div class="toast-container">
+  <div class="toast-container ${setToastText === null ? 'toast-toggle' : ''}">
     <img src="./img/x.png" />
-    <div class="toast-text"></div>
+    <div class="toast-text">${setToastText}</div>
     <img src="./img/x.png" />
   </div>
 </template>

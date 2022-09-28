@@ -9,6 +9,7 @@ import {
   ValidationRules,
 } from 'aurelia-validation';
 import { Supplier, SupplierService } from './supplier.service';
+import { NormalModuleReplacementPlugin } from 'webpack';
 
 @autoinject
 export class Challenge {
@@ -20,7 +21,7 @@ export class Challenge {
   title: string = 'Browse';
   selectedSupplier: string = null;
   selectedParentProduct: string = null;
-  setToastText: boolean;
+  setToastText: string = null;
 
   showModal: boolean = true;
   showSelected: boolean;
@@ -67,21 +68,35 @@ export class Challenge {
     this.selectedParentProduct = productId;
   }
 
-  checkboxfunc(childproduct: SelectedChildProduct) {
+  onCheckBoxClick(childproduct: SelectedChildProduct) {
     childproduct.isSelected = !childproduct.isSelected;
+
+    this.setToastText = null;
 
     if (childproduct.isSelected) {
       this.selectedChildren.push(childproduct);
+
+      this.setToastText = `Sucessfully added ${childproduct.name}`;
     } else {
       let index = this.selectedChildren.findIndex(
         (c) => c.id === childproduct.id
       );
       this.selectedChildren.splice(index, 1);
+
+      this.setToastText = `Sucessfully removed ${
+        childproduct.quantity + ` ` + childproduct.name
+      }`;
     }
 
     if (this.selectedChildren.length < 1) {
       this.showSelected = false;
     }
+
+    let resetToastValue = () => {
+      this.setToastText = null;
+    };
+
+    setTimeout(resetToastValue, 1500);
 
     childproduct.quantity = 1;
 

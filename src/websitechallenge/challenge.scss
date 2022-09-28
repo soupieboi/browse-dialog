@@ -299,6 +299,10 @@ $keyboard-hover-color: #e3f1fe;
   border-radius: 10px 0 0 10px;
   align-items: flex-start;
 
+  &.toast-toggle {
+    opacity: 0%;
+  }
+
   img {
     padding-top: 7px;
     padding-right: 7px;
