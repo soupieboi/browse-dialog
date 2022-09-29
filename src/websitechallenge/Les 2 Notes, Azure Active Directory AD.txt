@@ -1,0 +1,33 @@
+Active directory is a collection of multiple services designed to preform different tasks.
+
+The Azure AD (active directory) Overview is also a collection of multiple services,
+
+It's like an umbrella of different products and services.
+
+- Azure Active Directory Admin Center
+
+	AAD is like a dedicated page for all tasks specified to the Azure AD.
+
+- Azure AD join
+
+	Azure AD join is mainly used for bigger companies that have devices that they hand out.
+
+There are multiple services that you can choose from depending on which is most appropriate to your situation.
+
+for instance: 
+
+	- Azure AD Domain Services is used if you are using older directories.
+
+	- Support for SaaS and PaaS Applications, (software as a service and Product as a service).
+
+	- Application proxy is used to verify a user -- whether that be through username and password or through other means -- through the cloud.
+
+
+Modern Authentication doesn't work by having a UAP anymore, instead it works as following:
+
+The user send their UAP to a IDP (identity provider) and in return, the user receives a Token.
+Then the user sends that token to the server and in return the server sends that to the IDP.
+The server can then either verify the token because the server has a trust relationship with the IDP.
+Or simply knowledge of the provider's SIK (sign in key) is enough to check the cryptographic signature on the token.
+
+A token is a signed document, much rather a cryptographically signed document.

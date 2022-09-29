@@ -1,41 +1,123 @@
 import { autoinject, observable } from 'aurelia-framework';
-import { SupplierService, Supplier } from './supplier.service';
 import {
-  ProductService,
   ParentProduct,
+  ProductService,
   SelectedChildProduct,
 } from './product.service';
+import {
+  ValidationControllerFactory,
+  ValidationRules,
+  ValidationController,
+  ValidateOnBlurBindingBehavior,
+} from 'aurelia-validation';
+import { Supplier, SupplierService } from './supplier.service';
 
 @autoinject
 export class Challenge {
   suppliers: Supplier[];
   products: ParentProduct[];
-  selectedChildren: string[] = [];
-  childProductIds: string[] = [];
-  supplierSearchFilter: string[] = [];
-  @observable query: string;
-
+  selectedChildren: SelectedChildProduct[] = [];
+  selectedChildProduct: SelectedChildProduct[];
+  validationController: ValidationController;
+  errorContainer: string = null;
   title: string = 'Browse';
-  returnFromSelectionTitle: string;
-  selectedParentProduct: string = null;
-  toastContainer: string;
-
+  selectedSupplier: string = null;
   showModal: boolean = true;
-  supplierPage: boolean = true;
-  isContentShowing: boolean = true;
-  showProductList: boolean = false;
-  showArray: boolean = false;
-  showProductChildren: boolean = false;
-
-  showToastNotification: boolean = false;
+  showSelected: boolean;
+  selectedParentProduct: string = null;
+  setToastText: string = null;
+  @observable query: string;
 
   constructor(
     private supplierService: SupplierService,
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    private validationControllerFactory: ValidationControllerFactory
+  ) {
+    this.validationController =
+      validationControllerFactory.createForCurrentScope();
+  }
+
+  attached() {
+    // this.setupValidation();
+  }
 
   async bind() {
     this.suppliers = await this.supplierService.get();
+  }
+
+  toggleModalVisible() {
+    this.showModal = !this.showModal;
+  }
+
+  backButton() {
+    this.title = 'Browse';
+    this.selectedParentProduct = null;
+    this.selectedSupplier = null;
+  }
+
+  async selectSupplier(supplier: Supplier) {
+    await this.getProducts();
+    this.title = supplier.name;
+    this.productFilter(supplier.id);
+    this.selectedSupplier = supplier.name;
+  }
+
+  productFilter(supplierId: string) {
+    this.products = this.products.filter((c) => c.supplierId === supplierId);
+  }
+
+  selectParentProduct(productId: string) {
+    if (this.selectedParentProduct === productId) {
+      this.selectedParentProduct = null;
+      return;
+    }
+
+    this.selectedParentProduct = productId;
+  }
+
+  onCheckBoxClick(childproduct: SelectedChildProduct) {
+    childproduct.isSelected = !childproduct.isSelected;
+    this.setToastText = null;
+
+    if (childproduct.isSelected) {
+      this.selectedChildren.push(childproduct);
+      this.setToastText = `Sucessfully added ${childproduct.name}`;
+    } else {
+      let index = this.selectedChildren.findIndex(
+        (c) => c.id === childproduct.id
+      );
+      this.selectedChildren.splice(index, 1);
+      this.setToastText = `Sucessfully removed ${
+        childproduct.quantity + ` ` + childproduct.name
+      }`;
+    }
+
+    if (this.selectedChildren.length < 1) {
+      this.showSelected = false;
+    }
+
+    let resetToastValue = () => {
+      this.setToastText = null;
+    };
+
+    setTimeout(resetToastValue, 1500);
+
+    this.setupValidation(childproduct);
+
+    childproduct.quantity = 1;
+    return true;
+  }
+
+  async validateInput() {
+    const validationResult = await this.validationController.validate();
+    this.errorContainer = null;
+
+    if (validationResult.valid) {
+      this.showSelected = true;
+    } else {
+      this.showSelected = false;
+      this.errorContainer = 'Something went wrong';
+    }
   }
 
   private async getProducts() {
@@ -43,86 +125,11 @@ export class Challenge {
     this.products = paginatedItem.data;
   }
 
-  toggleModalVisible() {
-    this.showModal = !this.showModal;
-  }
-
-  async selectSupplier(supplier: Supplier) {
-    this.title = supplier.name;
-    await this.getProducts();
-    this.showProductList = true;
-    this.supplierPage = false;
-    this.showProductChildren = false;
-    this.showChildProducts(supplier.id);
-    this.returnFromSelectionTitle = supplier.name;
-  }
-
-  backButton() {
-    this.title = 'Browse';
-    this.showProductList = false;
-    this.supplierPage = true;
-    this.selectedParentProduct = null;
-  }
-
-  selectParentProduct(productId: string) {
-    this.selectedParentProduct = productId;
-  }
-
-  showChildProducts(supplierId: string) {
-    this.products = this.products.filter((c) => c.supplierId === supplierId);
-  }
-
-  checkboxfunc(childproduct: SelectedChildProduct, childId: string) {
-    childproduct.isSelected = !childproduct.isSelected;
-    if (!this.selectedChildren.includes(childproduct.name)) {
-      this.selectedChildren.push(childproduct.name);
-      this.toastContainer = 'Added ' + childproduct.name + ' successfully.';
-      this.showToastNotification = true;
-    } else if (this.selectedChildren.includes(childproduct.name)) {
-      let duplicateChildProduct = this.selectedChildren.indexOf(
-        childproduct.name
-      );
-
-      if (duplicateChildProduct > -1) {
-        this.selectedChildren.splice(duplicateChildProduct, 1);
-      }
-
-      this.toastContainer = 'Removed ' + childproduct.name + ' successfully.';
-      this.showToastNotification = false;
-    }
-
-    if (!this.childProductIds.includes(childId)) {
-      this.childProductIds.push(childId);
-    } else if (this.childProductIds.includes(childId)) {
-      let duplicateChildId = this.childProductIds.indexOf(childId);
-
-      if (duplicateChildId > -1) {
-        this.childProductIds.splice(duplicateChildId, 1);
-      }
-    }
-
-    // Checks the checkbox
-    return true;
-  }
-
-  showChildren() {
-    this.isContentShowing = false;
-    this.showProductList = false;
-    this.title = 'selection';
-    this.showArray = true;
-  }
-
-  cancelSelection() {
-    if ((this.showArray = true)) {
-      this.isContentShowing = true;
-      this.showProductList = true;
-      this.showArray = false;
-      this.title = this.returnFromSelectionTitle;
-    }
-  }
-
-  getProductAmount(productAmount: number) {
-    console.log(productAmount);
+  private setupValidation(childproduct: SelectedChildProduct) {
+    ValidationRules.ensure((c: SelectedChildProduct) => c.quantity)
+      .required()
+      .min(1)
+      .on(childproduct);
   }
 }
 

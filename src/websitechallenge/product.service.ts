@@ -28,6 +28,7 @@ export interface ChildProduct {
 
 export interface SelectedChildProduct extends ChildProduct {
   isSelected: boolean;
+  quantity: number;
 }
 
 export interface PurchasePrice {

@@ -1,9 +1,0 @@
-To Do:
-
-- Make searchbar work with blur.bind -- 
-  blur.bind allows you to run something on Keydown so you don't have to specify what key but watever is inside of the value will make it update if it's something the last updated value was not.
-
-- Make a function that runs when you go to the selection page that will show all the added product counters ontop of the li
-  Have it sum up all the values from the selected and loaded inputs and use a math function to add it all together with a nice display.
-
-- On checkbox mark have a small toast notification pop up telling you that the item has been added

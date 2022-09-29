@@ -1,18 +1,12 @@
 <template>
-  <h1 class="name">Modal Challenge</h1>
   <require from="./challenge.scss"></require>
+
+  <h1>Modal Challenge</h1>
+
   <button type="button" click.delegate="toggleModalVisible()">
     Open Modal
   </button>
   <button type="button">test me!</button>
-
-  <div
-    class="${showToastNotification === true ? 'selectedToast' : 'hideToast'}"
-  >
-    <div class="greenBorder"></div>
-    <h3>${toastContainer}</h3>
-    <div class="elipse"></div>
-  </div>
 
   <div class="modal-body" show.bind="showModal">
     <div class="modal-content">
@@ -20,12 +14,13 @@
         <button
           type="button"
           class="modalback"
-          show.bind="showProductList"
+          show.bind="selectedSupplier === title && selectedChildren.length < 1"
           click.delegate="backButton()"
         >
           <img src="img/arrow-left.png" alt="backarrow" />
         </button>
-        <h3 class="modalname">${title}</h3>
+
+        <h3>${showSelected ? 'Selection':title}</h3>
 
         <button
           type="button"
@@ -36,83 +31,97 @@
         </button>
       </header>
 
-      <div class="modalsearchbox">
+      <div class="modal-search">
         <img src="img/search.png" alt="search" />
         <input
           type="text"
-          placeholder="${supplierPage === false ? 'Search Products' : 'Search suppliers'}"
+          placeholder="${selectedSupplier != null ? 'Search Products' : 'Search Suppliers'}"
           value.bind="query & debounce:300"
         />
       </div>
 
-      <div
-        class="supplier-list"
-        if.bind="!showProductList"
-        show.bind="isContentShowing"
-      >
-        <ul>
+      <div class="supplier-list">
+        <ul if.bind="selectedSupplier === null ">
           <li
             class="items"
             repeat.for="supplier of suppliers | filter:['name']:query"
           >
-            <a
-              href="#"
-              click.delegate="selectSupplier(supplier)"
-              show.bind="supplierPage"
-            >
+            <a href="#" click.delegate="selectSupplier(supplier)">
               ${supplier.name}
             </a>
           </li>
         </ul>
       </div>
 
-      <ul class="product-list">
-        <li repeat.for="product of products">
-          <a
-            href="#"
-            class="products"
-            click.delegate="selectParentProduct(product.id)"
-          >
-            ${product.name}
-            <img
-              src="./img/chevron-right.png"
-              class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
-            />
-          </a>
+      <ul
+        class="product-list"
+        if.bind="selectedSupplier != null && !showSelected"
+      >
+        <li
+          repeat.for="product of products | filter:['childProducts.name']:query"
+          class="${selectedParentProduct === product.id ? 'no-bottom-border':''}"
+        >
+          <div class="top-line">
+            <a href="#" click.delegate="selectParentProduct(product.id)">
+              ${product.name}
+              <img
+                src="./img/chevron-right.png"
+                class="arrow ${selectedParentProduct === product.id ? 'rotate' : ''}"
+              />
+            </a>
+          </div>
+          <h2>sku: ${product.id}</h2>
+
           <ul if.bind="selectedParentProduct === product.id">
+            ${errorContainer != null ? errorContainer:''}
             <li repeat.for="childProduct of product.childProducts">
               <label>
                 <input
                   type="checkbox"
                   class="selectedProduct"
-                  click.delegate="checkboxfunc(childProduct, childProduct.id, productAmount)"
-                  model.bind="childProduct.id"
-                  checked.bind="childProductIds"
+                  click.delegate="onCheckBoxClick(childProduct)"
+                  model.bind="childProduct"
+                  checked.bind="childProduct.isSelected"
                 />
                 ${childProduct.name}
               </label>
               <input
+                required()
                 type="number"
-                class="productCount"
-                min="0"
+                class="productCount ${errorContainer != null ? 'invalid-input':''}"
+                min="1"
+                step="1"
                 if.bind="childProduct.isSelected"
-                placeholder="..."
+                placeholder="-"
+                value.bind="childProduct.quantity & validate"
               />
             </li>
           </ul>
         </li>
       </ul>
 
-      <ul class="selectPage" if.bind="showArray">
-        <li repeat.for="child of selectedChildren">${child}</li>
-      </ul>
+      <ol class="select-page" if.bind="showSelected">
+        <li repeat.for="childProduct of selectedChildren">
+          <div class="text-column">
+            <div class="child-name">${childProduct.name}</div>
+            <div class="child-id">${childProduct.id}</div>
+            <div class="child-sku">${childProduct.sku}</div>
+          </div>
+          <span>
+            <input value.bind="childProduct.quantity" />
+            <button click.trigger="onCheckBoxClick(childProduct)">
+              <img src="./img/Vector.png" />
+            </button>
+          </span>
+        </li>
+      </ol>
     </div>
 
     <div class="button-wrapper">
       <button
         type="submit"
         class="${selectedChildren.length > 0 ? 'active': ''}"
-        click.trigger="showChildren()"
+        click.trigger="validateInput(childProduct)"
         disabled.bind="selectedChildren.length === 0"
       >
         ${selectedChildren.length}
@@ -121,16 +130,21 @@
       </button>
       <div class="bottom-buttons">
         <button
-          class="${showArray === true && selectedChildren.length > 0 ? 'cancelColor': ''}"
-          click.trigger="cancelSelection()"
-          disabled.bind="isArrayDisplayed === false"
+          class="${showSelected === true && selectedChildren.length >= 0 ? 'cancel-color': ''}"
+          click.trigger="showSelected = false"
+          disabled.bind="!showSelected"
         >
           CANCEL
         </button>
-        <button class="${selectedChildren.length > 0 ? 'addColor': ''}">
+        <button class="${selectedChildren.length > 0 ? 'add-color': ''}">
           ADD
         </button>
       </div>
     </div>
+  </div>
+  <div class="toast-container ${setToastText === null ? 'toast-toggle' : ''}">
+    <div class="check-button"><img src="./img/Ellipse 24 (1).png" /></div>
+    <div class="toast-text">${setToastText}</div>
+    <img src="./img/x.png" />
   </div>
 </template>
