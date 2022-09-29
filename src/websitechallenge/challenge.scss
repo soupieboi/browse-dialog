@@ -118,6 +118,12 @@ $keyboard-hover-color: #e3f1fe;
             margin-top: 10px;
             flex-direction: row;
             justify-content: flex-end;
+            outline: none;
+
+            &.invalid-input {
+              outline: 2px solid red;
+              border: red;
+            }
           }
 
           label {

@@ -7,32 +7,38 @@ import {
 import {
   ValidationControllerFactory,
   ValidationRules,
+  ValidationController,
+  ValidateOnBlurBindingBehavior,
 } from 'aurelia-validation';
 import { Supplier, SupplierService } from './supplier.service';
-import { NormalModuleReplacementPlugin } from 'webpack';
-import { exec } from 'child_process';
 
 @autoinject
 export class Challenge {
   suppliers: Supplier[];
   products: ParentProduct[];
   selectedChildren: SelectedChildProduct[] = [];
-  @observable query: string;
-
+  selectedChildProduct: SelectedChildProduct[];
+  validationController: ValidationController;
+  errorContainer: string = null;
   title: string = 'Browse';
   selectedSupplier: string = null;
-  selectedParentProduct: string = null;
-  setToastText: string = null;
-
   showModal: boolean = true;
   showSelected: boolean;
+  selectedParentProduct: string = null;
+  setToastText: string = null;
+  @observable query: string;
 
   constructor(
     private supplierService: SupplierService,
     private productService: ProductService,
     private validationControllerFactory: ValidationControllerFactory
   ) {
-    let controller = validationControllerFactory.createForCurrentScope();
+    this.validationController =
+      validationControllerFactory.createForCurrentScope();
+  }
+
+  attached() {
+    // this.setupValidation();
   }
 
   async bind() {
@@ -71,19 +77,16 @@ export class Challenge {
 
   onCheckBoxClick(childproduct: SelectedChildProduct) {
     childproduct.isSelected = !childproduct.isSelected;
-
     this.setToastText = null;
 
     if (childproduct.isSelected) {
       this.selectedChildren.push(childproduct);
-
       this.setToastText = `Sucessfully added ${childproduct.name}`;
     } else {
       let index = this.selectedChildren.findIndex(
         (c) => c.id === childproduct.id
       );
       this.selectedChildren.splice(index, 1);
-
       this.setToastText = `Sucessfully removed ${
         childproduct.quantity + ` ` + childproduct.name
       }`;
@@ -99,14 +102,34 @@ export class Challenge {
 
     setTimeout(resetToastValue, 1500);
 
-    childproduct.quantity = 1;
+    this.setupValidation(childproduct);
 
+    childproduct.quantity = 1;
     return true;
+  }
+
+  async validateInput() {
+    const validationResult = await this.validationController.validate();
+    this.errorContainer = null;
+
+    if (validationResult.valid) {
+      this.showSelected = true;
+    } else {
+      this.showSelected = false;
+      this.errorContainer = 'Something went wrong';
+    }
   }
 
   private async getProducts() {
     let paginatedItem = await this.productService.get();
     this.products = paginatedItem.data;
+  }
+
+  private setupValidation(childproduct: SelectedChildProduct) {
+    ValidationRules.ensure((c: SelectedChildProduct) => c.quantity)
+      .required()
+      .min(1)
+      .on(childproduct);
   }
 }
 
