@@ -8,7 +8,6 @@ import {
   ValidationControllerFactory,
   ValidationRules,
   ValidationController,
-  ValidateOnBlurBindingBehavior,
 } from 'aurelia-validation';
 import { Supplier, SupplierService } from './supplier.service';
 
@@ -35,10 +34,6 @@ export class Challenge {
   ) {
     this.validationController =
       validationControllerFactory.createForCurrentScope();
-  }
-
-  attached() {
-    // this.setupValidation();
   }
 
   async bind() {
@@ -116,7 +111,7 @@ export class Challenge {
       this.showSelected = true;
     } else {
       this.showSelected = false;
-      this.errorContainer = 'Something went wrong';
+      this.errorContainer = 'Please enter a valid amount';
     }
   }
 
